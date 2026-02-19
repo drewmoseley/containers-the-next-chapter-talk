@@ -1,0 +1,4 @@
+((markdown-mode . ((eval . (drew/slides-mode 1))))
+ (makefile-mode . ((eval . (drew/slides-mode 1))))
+ (org-mode      . ((eval . (drew/slides-mode 1))))
+)
