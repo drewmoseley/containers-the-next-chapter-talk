@@ -19,7 +19,11 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 $(COMBINED_MD): $(SLIDES_MD) | $(BUILD_DIR)
-	cat $(SLIDES_MD) > $(COMBINED_MD)
+	rm -f $(COMBINED_MD)
+	for f in $(SLIDES_MD); do \
+	  cat "$$f"; \
+	  printf '\n\n'; \
+	done > $(COMBINED_MD)
 
 REVEAL_WIDTH  ?= 1920
 REVEAL_HEIGHT ?= 1080
