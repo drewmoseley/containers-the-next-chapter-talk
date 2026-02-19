@@ -1,6 +1,6 @@
 % Beyond Basic Containers for Embedded Linux
 % Drew Moseley
-% {event} – {date}
+% Embedded World Conference and Expo – March 12, 2026
 
 ---
 
