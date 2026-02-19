@@ -4,6 +4,12 @@
 
 ---
 
+## WITH YOU TODAY… {.speaker-slide}
+Drew Moseley  
+Torizon Professional Services, Staff Developer, Toradex
+
+---
+
 ## Why Containers *Beyond* the Basics?
 
 - We already know:
