@@ -1,0 +1,23 @@
+{
+  // Treat *.md as Markdown
+  "files.associations": {
+    "*.md": "markdown"
+  },
+
+  // Wrap text nicely in Markdown files
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": false
+    }
+  },
+
+  // Enable Markdown Preview Enhanced as an alternate preview (optional)
+  "markdown-preview-enhanced.scrollSync": true,
+
+  // Git: show untracked changes etc.
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false
+}

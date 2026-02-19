@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "yzhang.markdown-all-in-one",
+    "shd101wyy.markdown-preview-enhanced",
+    "ms-vscode.makefile-tools",
+    "eamodio.gitlens",
+    "techer.open-in-browser"
+  ]
+}
