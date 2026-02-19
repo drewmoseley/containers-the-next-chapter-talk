@@ -38,6 +38,8 @@ reveal: $(COMBINED_MD) $(BUILD_DIR)/custom.css
 	  -t revealjs \
 	  -s \
 	  -c custom.css \
+	  -V theme=white \
+	  -V center=false \
 	  -V revealjs-url=$(REVEALJS_URL) \
 	  -V slide-level=2 \
 	  -V width=$(REVEAL_WIDTH) \
