@@ -1,15 +1,8 @@
 PANDOC       ?= pandoc
 SLIDES_DIR   := slides
 BUILD_DIR    := build
-SLIDES_MD    := $(SLIDES_DIR)/01-intro.md \
-                 $(SLIDES_DIR)/02-builds.md \
-                 $(SLIDES_DIR)/03-minimal-bases.md \
-                 $(SLIDES_DIR)/04-performance.md \
-                 $(SLIDES_DIR)/05-security.md \
-                 $(SLIDES_DIR)/06-deployment.md \
-                 $(SLIDES_DIR)/07-integration.md \
-                 $(SLIDES_DIR)/08-debugging.md \
-                 $(SLIDES_DIR)/09-wrap-up.md
+
+SLIDES_MD    = $(sort $(wildcard $(SLIDES_DIR)/[0-9][0-9][0-9]-*.md))
 
 COMBINED_MD  := $(BUILD_DIR)/slides.md
 HTML_OUT     := $(BUILD_DIR)/containers-embedded.html
