@@ -6,21 +6,31 @@
 }
 
 /* --- Base reveal layout --- */
-
 .reveal {
   background-color: #ffffff;
   color: #333333;
   font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
                "Segoe UI", sans-serif;
-  font-size: 26px; /* adjust up/down as needed */
+  font-size: 26px;
 }
 
-/* Slight padding so content doesn't hug edges */
+/* Emulate Toradex PPT margins:
+   - ~5% left/right (about 100–110px at 1920px width)
+   - ~3% top for the title area
+   - extra vertical breathing room at bottom
+*/
 .reveal .slides section {
-  padding: 40px 80px 80px 80px;
+  /* top, right, bottom, left */
+  padding: 16px 112px 48px 112px;
+  box-sizing: border-box;
 }
 
-/* Slightly smaller headings than reveal defaults, Toradex blue */
+/* Remove any extra top margin on first child so the title sits at 3% */
+.reveal .slides section > *:first-child {
+  margin-top: 0;
+}
+
+/* Titles: Toradex blue, with predictable spacing to body text */
 .reveal h1 {
   font-size: 1.9em;
   color: var(--toradex-blue);
@@ -34,15 +44,17 @@
   color: var(--toradex-blue);
 }
 
-/* Underline main headings with green accent (except title slide) */
+/* Underline main headings with green accent (except title slide).
+   Body content begins roughly where PPT's bullets start (~25–27% down),
+   by adding margin below the title. */
 .reveal .slides section:not(#title-slide) h1,
 .reveal .slides section:not(#title-slide) h2 {
   border-bottom: 3px solid var(--toradex-green);
   padding-bottom: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 220px; /* key number: pushes body to ≈25–27% height */
 }
 
-/* List spacing similar to PPT look */
+/* List spacing */
 .reveal ul,
 .reveal ol {
   margin-top: 0.6em;
@@ -52,56 +64,62 @@
   margin: 0.25em 0;
 }
 
-/* --- Title slide (pandoc sets id=title-slide) --- */
-
+/* --- PPT-style title slide using extracted background --- */
 .reveal #title-slide {
-  background-color: var(--toradex-blue);
-  color: #ffffff;
+  /* Fill at least the viewport so the image scales correctly */
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  /* Use the PPT background image and show the whole thing */
+  background-image: url("img/title-slide-background.png");
+  background-size: contain;        /* keep full image, no cropping */
+  background-position: center right;
+  background-repeat: no-repeat;
+
+  /* Left side is white in your PPT */
+  background-color: #ffffff;
+
+  /* Text like the PPT: dark Toradex blue on the white area */
+  color: var(--toradex-blue);
   text-align: left;
-  padding: 100px 140px;
+
+  /* Position the text block lower and into the left column */
+  padding: 150px 60px 80px 110px;  /* TOP RIGHT BOTTOM LEFT */
 }
 
+/* Keep title content in the left pane so it wraps before the image */
+.reveal #title-slide > * {
+  max-width: 40%;     /* widen or narrow to taste */
+}
+
+/* Title text styling similar to PPT */
 .reveal #title-slide h1 {
   font-size: 2.6em;
-  color: #ffffff;
-  margin-bottom: 0.4em;
+  font-weight: 600;
+  margin: 0 0 0.4em 0;
+  color: var(--toradex-blue);
 }
 
 .reveal #title-slide h2,
-.reveal #title-slide p {
+.reveal #title-slide p,
+.reveal #title-slide a {
   font-size: 1.3em;
   margin: 0.3em 0;
-  color: #ffffff;
+  color: var(--toradex-blue);
+  text-decoration: none;
 }
 
-/* Optional background hero image on title slide (set your own image) */
-/*
-.reveal #title-slide::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("img/title-background.jpg");
-  background-size: cover;
-  background-position: center;
-  opacity: 0.25; 
-}
-*/
-
-/* Ensure text stays above the hero image */
-.reveal #title-slide > * {
-  position: relative;
-  z-index: 1;
+/* Optional: underline "Webinar:" like the PPT */
+.reveal #title-slide a {
+  text-decoration: underline;
 }
 
-/* --- Speaker slide style (like slide 2 in your deck) --- */
-/* Use a class on that slide: <section class="speaker-slide"> ... */
-
+/* --- Speaker slide style (WITH YOU TODAY…) ---
+   Use in markdown: ## WITH YOU TODAY… {.speaker-slide} */
 .reveal .slides section.speaker-slide {
   background-color: #ffffff;
   color: #333333;
 }
-
-/* Big shout header */
 .reveal .slides section.speaker-slide h1,
 .reveal .slides section.speaker-slide h2 {
   border: none;
@@ -110,18 +128,13 @@
   letter-spacing: 0.08em;
 }
 
-/* Layout hint: left text vs right portrait could be done via custom HTML if you want,
-   but for now we just style text nicely. */
-
-/* --- Section divider slides (AGENDA, DEMO TIME!, etc.) --- */
-/* Use class="section-divider" */
-
+/* --- Section divider slides (AGENDA, DEMO TIME!, etc.) ---
+   Use in markdown: ## DEMO TIME! {.section-divider} */
 .reveal .slides section.section-divider {
   background-color: var(--toradex-blue);
   color: #ffffff;
   text-align: left;
 }
-
 .reveal .slides section.section-divider h1,
 .reveal .slides section.section-divider h2 {
   color: #ffffff;
@@ -129,13 +142,11 @@
   font-size: 2.2em;
   margin-bottom: 0.3em;
 }
-
 .reveal .slides section.section-divider p {
   font-size: 1.3em;
 }
 
-/* --- Bottom brand bar on all non-title slides (optional) --- */
-
+/* --- Bottom brand bar on all non-title slides --- */
 .reveal .slides section:not(#title-slide)::after {
   content: "Toradex – Beyond Basic Containers for Embedded Linux";
   position: absolute;
@@ -153,26 +164,7 @@
   box-sizing: border-box;
 }
 
-/* Optional logo in that bottom bar (if you add an image) */
-/*
-.reveal .slides section:not(#title-slide)::before {
-  content: "";
-  position: absolute;
-  left: 80px;
-  bottom: 8px;
-  width: 120px;
-  height: 24px;
-  background-image: url("img/toradex-logo-small.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-.reveal .slides section:not(#title-slide)::after {
-  padding-left: 220px; 
-}
-*/
-
 /* --- Code blocks and inline code --- */
-
 .reveal code {
   font-family: "Fira Code", "Source Code Pro", monospace;
   font-size: 0.85em;
@@ -180,7 +172,6 @@
   padding: 0 0.2em;
   border-radius: 3px;
 }
-
 .reveal pre code {
   display: block;
   padding: 10px 12px;
@@ -189,21 +180,29 @@
   color: #f8f8f2;
 }
 
-/* --- Tables, if needed --- */
-
+/* --- Tables --- */
 .reveal table {
   border-collapse: collapse;
   margin: 1em 0;
 }
-
 .reveal table th,
 .reveal table td {
   border: 1px solid #dddddd;
   padding: 6px 10px;
 }
-
 .reveal table th {
   background-color: var(--toradex-grey);
   color: #333333;
 }
 
+/* Background image ONLY on main content slides:
+   - NOT the title slide (#title-slide)
+   - NOT the final Thank You slide (.thank-you)
+   - NOT section-divider or speaker slides
+*/
+.reveal .slides section:not(#title-slide):not(.thank-you):not(.section-divider):not(.speaker-slide) {
+  background-image: url("img/main-slide-background.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
