@@ -5,7 +5,7 @@
 ---
 
 ## WITH YOU TODAY… {.speaker-slide}
-Drew Moseley  
+Drew Moseley<br>
 Torizon Professional Services, Staff Developer, Toradex
 
 ---

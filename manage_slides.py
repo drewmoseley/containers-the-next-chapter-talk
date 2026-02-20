@@ -26,12 +26,13 @@ Assumptions:
 import sys
 import re
 from pathlib import Path
+from typing import NoReturn
 
 SLIDES_DIR = Path("slides")
 PATTERN = re.compile(r"^(\d{3})-(.+)\.md$")  # 3 digits now
 
 
-def usage_and_exit(msg: str | None = None) -> None:
+def usage_and_exit(msg: str | None = None) -> NoReturn:
     prog = sys.argv[0] or "manage_slides.py"
     if msg:
         print(f"Error: {msg}", file=sys.stderr)
@@ -51,9 +52,12 @@ def slugify(text: str) -> str:
     return re.sub(r"[^a-z0-9._-]", "", text)
 
 
-def load_slides():
+def load_slides() -> list[tuple[int, str, Path]]:
     if not SLIDES_DIR.is_dir():
-        usage_and_exit(f"slides directory not found at {SLIDES_DIR}")
+        sys.exit(
+            f"Error: slides directory not found at '{SLIDES_DIR}'.\n"
+            "manage_slides.py must be run from the repository root."
+        )
 
     files: list[tuple[int, str, Path]] = []
     for path in SLIDES_DIR.iterdir():
@@ -65,6 +69,8 @@ def load_slides():
         idx = int(m.group(1))
         rest = m.group(2)
         files.append((idx, rest, path))
+
+    files.sort(key=lambda t: t[0])
     return files
 
 
@@ -145,6 +151,19 @@ def cmd_delete(position: int) -> None:
         usage_and_exit(f"no slide found at position {position}")
 
     _, _, del_path = to_delete
+
+    # Show the file that will be deleted and confirm
+    print(f"About to delete: {del_path.name}")
+    print("--- content preview ---")
+    content = del_path.read_text()
+    preview = content[:400] + ("..." if len(content) > 400 else "")
+    print(preview)
+    print("-----------------------")
+    answer = input("Delete this slide? [y/N] ").strip().lower()
+    if answer != "y":
+        print("Aborted.")
+        sys.exit(0)
+
     print(f"Deleting {del_path.name}")
     del_path.unlink()
 

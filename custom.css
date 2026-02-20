@@ -1,14 +1,25 @@
 /* --- Toradex-like color palette (approximate) --- */
 :root {
-  --toradex-blue:  #003b64;  /* dark blue */
-  --toradex-green: #8dc63f;  /* accent green */
-  --toradex-grey:  #f5f5f5;
+  --toradex-blue:     #003b64;  /* dark blue */
+  --toradex-green:    #8dc63f;  /* accent green */
+  --toradex-grey:     #f5f5f5;  /* light background grey */
+
+  --color-text:       #333333;
+  --color-white:      #ffffff;
+  --color-border:     #dddddd;
+
+  --color-code-bg:    #f0f0f0;  /* inline code background */
+  --color-code-dark-bg: #272822; /* pre block background (Monokai) */
+  --color-code-dark-fg: #f8f8f2; /* pre block foreground (Monokai) */
+
+  /* Distance from slide title to body content (≈20% of 1080px height) */
+  --slide-title-gap:  220px;
 }
 
 /* --- Base reveal layout --- */
 .reveal {
-  background-color: #ffffff;
-  color: #333333;
+  background-color: var(--color-white);
+  color: var(--color-text);
   font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
                "Segoe UI", sans-serif;
   font-size: 26px;
@@ -51,7 +62,7 @@
 .reveal .slides section:not(#title-slide) h2 {
   border-bottom: 3px solid var(--toradex-green);
   padding-bottom: 8px;
-  margin-bottom: 220px; /* key number: pushes body to ≈25–27% height */
+  margin-bottom: var(--slide-title-gap);
 }
 
 /* List spacing */
@@ -77,7 +88,7 @@
   background-repeat: no-repeat;
 
   /* Left side is white in your PPT */
-  background-color: #ffffff;
+  background-color: var(--color-white);
 
   /* Text like the PPT: dark Toradex blue on the white area */
   color: var(--toradex-blue);
@@ -117,8 +128,8 @@
 /* --- Speaker slide style (WITH YOU TODAY…) ---
    Use in markdown: ## WITH YOU TODAY… {.speaker-slide} */
 .reveal .slides section.speaker-slide {
-  background-color: #ffffff;
-  color: #333333;
+  background-color: var(--color-white);
+  color: var(--color-text);
 }
 .reveal .slides section.speaker-slide h1,
 .reveal .slides section.speaker-slide h2 {
@@ -132,12 +143,12 @@
    Use in markdown: ## DEMO TIME! {.section-divider} */
 .reveal .slides section.section-divider {
   background-color: var(--toradex-blue);
-  color: #ffffff;
+  color: var(--color-white);
   text-align: left;
 }
 .reveal .slides section.section-divider h1,
 .reveal .slides section.section-divider h2 {
-  color: #ffffff;
+  color: var(--color-white);
   border: none;
   font-size: 2.2em;
   margin-bottom: 0.3em;
@@ -156,7 +167,7 @@
   height: 40px;
   padding: 8px 80px;
   background-color: var(--toradex-blue);
-  color: #ffffff;
+  color: var(--color-white);
   font-size: 0.7em;
   letter-spacing: 0.05em;
   display: flex;
@@ -165,19 +176,24 @@
 }
 
 /* --- Code blocks and inline code --- */
-.reveal code {
+
+/* Inline code only (not inside pre) */
+.reveal :not(pre) > code {
   font-family: "Fira Code", "Source Code Pro", monospace;
   font-size: 0.85em;
-  background-color: #f0f0f0;
+  background-color: var(--color-code-bg);
   padding: 0 0.2em;
   border-radius: 3px;
 }
+
+/* Fenced / pre code blocks */
 .reveal pre code {
+  font-family: "Fira Code", "Source Code Pro", monospace;
   display: block;
   padding: 10px 12px;
   border-radius: 4px;
-  background-color: #272822;
-  color: #f8f8f2;
+  background-color: var(--color-code-dark-bg);
+  color: var(--color-code-dark-fg);
 }
 
 /* --- Tables --- */
@@ -187,19 +203,16 @@
 }
 .reveal table th,
 .reveal table td {
-  border: 1px solid #dddddd;
+  border: 1px solid var(--color-border);
   padding: 6px 10px;
 }
 .reveal table th {
   background-color: var(--toradex-grey);
-  color: #333333;
+  color: var(--color-text);
 }
 
-/* Background image ONLY on main content slides:
-   - NOT the title slide (#title-slide)
-   - NOT the final Thank You slide (.thank-you)
-   - NOT section-divider or speaker slides
-*/
+/* Background image ONLY on main content slides.
+   Special slide types excluded: #title-slide, .thank-you, .section-divider, .speaker-slide */
 .reveal .slides section:not(#title-slide):not(.thank-you):not(.section-divider):not(.speaker-slide) {
   background-image: url("img/main-slide-background.png");
   background-size: cover;

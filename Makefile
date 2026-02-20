@@ -13,11 +13,11 @@ IMAGES  := $(wildcard $(IMG_DIR)/*)
 BUILD_IMG_DIR := $(BUILD_DIR)/img
 BUILD_IMAGES   := $(patsubst $(IMG_DIR)/%,$(BUILD_IMG_DIR)/%,$(IMAGES))
 
-REVEALJS_URL = reveal.js
+REVEALJS_URL ?= reveal.js
 
 .PHONY: all reveal org clean
 
-all: reveal
+all: reveal org
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
@@ -42,7 +42,6 @@ REVEAL_SRC_DIR := vendor/reveal.js
 REVEAL_BUILD_DIR := $(BUILD_DIR)/reveal.js
 
 $(REVEAL_BUILD_DIR): $(REVEAL_SRC_DIR) | $(BUILD_DIR)
-	rm -rf $(REVEAL_BUILD_DIR)
 	cp -R $(REVEAL_SRC_DIR) $(REVEAL_BUILD_DIR)
 
 REVEAL_WIDTH  ?= 1920
