@@ -12,8 +12,8 @@
   --color-code-dark-bg: #272822; /* pre block background (Monokai) */
   --color-code-dark-fg: #f8f8f2; /* pre block foreground (Monokai) */
 
-  /* Distance from slide title to body content (≈20% of 1080px height) */
-  --slide-title-gap:  220px;
+  /* Distance from slide title to body content */
+  --slide-title-gap:  50px;
 }
 
 /* --- Base reveal layout --- */
@@ -55,11 +55,10 @@
   color: var(--toradex-blue);
 }
 
-/* Underline main headings with green accent (except title slide).
-   Body content begins roughly where PPT's bullets start (~25–27% down),
-   by adding margin below the title. */
+/* Underline main headings with green accent (except title slide). */
 .reveal .slides section:not(#title-slide) h1,
 .reveal .slides section:not(#title-slide) h2 {
+  text-align: left;
   border-bottom: 3px solid var(--toradex-green);
   padding-bottom: 8px;
   margin-bottom: var(--slide-title-gap);
@@ -174,23 +173,7 @@
   font-size: 1.3em;
 }
 
-/* --- Bottom brand bar on all non-title slides --- */
-.reveal .slides section:not(#title-slide)::after {
-  content: "Toradex – Beyond Basic Containers for Embedded Linux";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 40px;
-  padding: 8px 80px;
-  background-color: var(--toradex-blue);
-  color: var(--color-white);
-  font-size: 0.7em;
-  letter-spacing: 0.05em;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-}
+/* No bottom bar — background image provides bottom decoration */
 
 /* --- Code blocks and inline code --- */
 
@@ -228,11 +211,13 @@
   color: var(--color-text);
 }
 
-/* Background image ONLY on main content slides.
+/* Background image on main content slides — placed on .reveal (full viewport)
+   so it always fills edge-to-edge regardless of section content height.
    Special slide types excluded: #title-slide, .thank-you, .section-divider, .speaker-slide */
-.reveal .slides section:not(#title-slide):not(.thank-you):not(.section-divider):not(.speaker-slide) {
+.reveal:has(section.present:not(#title-slide):not(.thank-you):not(.section-divider):not(.speaker-slide)) {
   background-image: url("img/main-slide-background.png");
   background-size: cover;
-  background-position: center top;
+  background-position: center center;
   background-repeat: no-repeat;
+  background-color: var(--color-white);
 }
