@@ -94,7 +94,7 @@
   text-align: left;
 
   /* Position the text block lower and into the left column */
-  padding: 150px 60px 80px 110px;  /* TOP RIGHT BOTTOM LEFT */
+  padding: 280px 60px 80px 110px;  /* TOP RIGHT BOTTOM LEFT */
 }
 
 /* Keep title content in the left pane so it wraps before the image */
@@ -106,7 +106,7 @@
 .reveal #title-slide h1 {
   font-size: 2.6em;
   font-weight: 600;
-  margin: 0 0 0.4em 0;
+  margin: 0 0 0.8em 0;
   color: var(--toradex-blue);
 }
 
@@ -117,6 +117,10 @@
   margin: 0.3em 0;
   color: var(--toradex-blue);
   text-decoration: none;
+}
+
+.reveal #title-slide p.date {
+  font-size: 1.0em;
 }
 
 /* Optional: underline "Webinar:" like the PPT */
