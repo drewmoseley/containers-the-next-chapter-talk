@@ -76,19 +76,18 @@
 }
 
 /* --- PPT-style title slide using extracted background --- */
-.reveal #title-slide {
-  /* Fill at least the viewport so the image scales correctly */
-  min-height: 100vh;
-  box-sizing: border-box;
 
-  /* Use the PPT background image and show the whole thing */
+/* Background on .reveal (full viewport) so it fills past the scaled slide area */
+.reveal:has(section#title-slide.present) {
   background-image: url("img/title-slide-background.png");
-  background-size: contain;        /* keep full image, no cropping */
+  background-size: contain;
   background-position: center right;
   background-repeat: no-repeat;
-
-  /* Left side is white in your PPT */
   background-color: var(--color-white);
+}
+
+.reveal #title-slide {
+  box-sizing: border-box;
 
   /* Text like the PPT: dark Toradex blue on the white area */
   color: var(--toradex-blue);
