@@ -49,6 +49,7 @@ REVEAL_HEIGHT ?= 1080
 REVEAL_MARGIN ?= 0
 REVEAL_MIN    ?= 0.2
 REVEAL_MAX    ?= 2.0
+REVEAL_TRANSITION ?= fade
 REVEAL_TEMPLATE ?= revealjs-template.html
 
 # Space-separated list of img/ paths to show as logos on the title slide
@@ -70,6 +71,7 @@ reveal: $(COMBINED_MD) $(BUILD_DIR)/custom.css $(BUILD_IMAGES) $(REVEAL_BUILD_DI
 	  -V margin=$(REVEAL_MARGIN) \
 	  -V minScale=$(REVEAL_MIN) \
 	  -V maxScale=$(REVEAL_MAX) \
+	  -V transition=$(REVEAL_TRANSITION) \
 	  -V "title-logos=$(TITLE_LOGOS_HTML)" \
 	  -o $(HTML_OUT)
 
