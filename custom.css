@@ -67,9 +67,12 @@
   margin-bottom: var(--slide-title-gap);
 }
 
-/* List spacing */
+/* List alignment and spacing.
+   Override reveal.js default of display:inline-block which causes centering. */
 .reveal ul,
 .reveal ol {
+  display: block;
+  text-align: left;
   margin-top: 0.6em;
   margin-bottom: 0.6em;
 }
