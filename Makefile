@@ -49,10 +49,17 @@ REVEAL_HEIGHT ?= 1080
 REVEAL_MARGIN ?= 0
 REVEAL_MIN    ?= 0.2
 REVEAL_MAX    ?= 2.0
+REVEAL_TEMPLATE ?= revealjs-template.html
+
+# Space-separated list of img/ paths to show as logos on the title slide
+TITLE_LOGOS ?= img/docker-blue.svg img/containerd-blue.svg img/podman-blue.svg
+TITLE_LOGOS_HTML := $(foreach logo,$(TITLE_LOGOS),<img src='$(logo)'>)
+
 reveal: $(COMBINED_MD) $(BUILD_DIR)/custom.css $(BUILD_IMAGES) $(REVEAL_BUILD_DIR)
 	$(PANDOC) $(COMBINED_MD) \
 	  -t revealjs \
 	  -s \
+	  --template $(REVEAL_TEMPLATE) \
 	  -c custom.css \
 	  -V theme=white \
 	  -V center=false \
@@ -63,6 +70,7 @@ reveal: $(COMBINED_MD) $(BUILD_DIR)/custom.css $(BUILD_IMAGES) $(REVEAL_BUILD_DI
 	  -V margin=$(REVEAL_MARGIN) \
 	  -V minScale=$(REVEAL_MIN) \
 	  -V maxScale=$(REVEAL_MAX) \
+	  -V "title-logos=$(TITLE_LOGOS_HTML)" \
 	  -o $(HTML_OUT)
 
 org: $(COMBINED_MD)

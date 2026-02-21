@@ -128,6 +128,20 @@
   text-decoration: underline;
 }
 
+/* Logo row on title slide */
+.reveal #title-slide .title-logos {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  margin-top: 1.6em;
+  max-width: 40%;
+}
+
+.reveal #title-slide .title-logos img {
+  height: 48px;
+  width: auto;
+}
+
 /* --- Speaker slide style (WITH YOU TODAY…) ---
    Use in markdown: ## WITH YOU TODAY… {.speaker-slide} */
 .reveal .slides section.speaker-slide {
