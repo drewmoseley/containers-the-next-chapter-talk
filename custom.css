@@ -35,6 +35,9 @@
   /* top, right, bottom, left */
   padding: 16px 112px 48px 112px;
   box-sizing: border-box;
+  /* Ensure section fills full slide height so background image covers
+     edge-to-edge and scales correctly with content at any resolution */
+  height: 100%;
 }
 
 /* Remove any extra top margin on first child so the title sits at 3% */
@@ -76,17 +79,14 @@
 
 /* --- PPT-style title slide using extracted background --- */
 
-/* Background on .reveal (full viewport) so it fills past the scaled slide area */
-.reveal:has(section#title-slide.present) {
+.reveal #title-slide {
+  box-sizing: border-box;
+
   background-image: url("img/title-slide-background.png");
   background-size: contain;
   background-position: center right;
   background-repeat: no-repeat;
   background-color: var(--color-white);
-}
-
-.reveal #title-slide {
-  box-sizing: border-box;
 
   /* Text like the PPT: dark Toradex blue on the white area */
   color: var(--toradex-blue);
@@ -211,15 +211,14 @@
   color: var(--color-text);
 }
 
-/* Background image on main content slides — placed on .reveal (full viewport)
-   so it always fills edge-to-edge regardless of section content height.
+/* Background image on main content slides — on the section so it scales
+   with slide content at any resolution via reveal.js's transform.
    Special slide types excluded: #title-slide, .thank-you, .section-divider, .speaker-slide */
-.reveal:has(section.present:not(#title-slide):not(.thank-you):not(.section-divider):not(.speaker-slide)) {
+.reveal .slides section:not(#title-slide):not(.thank-you):not(.section-divider):not(.speaker-slide) {
   background-image: url("img/main-slide-background.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-color: var(--color-white);
 }
 
 /* Torizon logo is baked into main-slide-background.png at top-right */
