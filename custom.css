@@ -147,8 +147,8 @@
 /* --- Speaker slide style (WITH YOU TODAY…) ---
    Use in markdown: ## WITH YOU TODAY… {.speaker-slide} */
 .reveal .slides section.speaker-slide {
-  background-color: var(--color-white);
   color: var(--color-text);
+  position: relative;
 }
 .reveal .slides section.speaker-slide h1,
 .reveal .slides section.speaker-slide h2 {
@@ -156,6 +156,54 @@
   color: var(--toradex-blue);
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  margin-bottom: 0;
+}
+
+.reveal .slides section.speaker-slide .speaker-cards {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.reveal .slides section.speaker-slide .speaker-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.reveal .slides section.speaker-slide .speaker-card img {
+  width: 280px;
+  height: 280px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.reveal .slides section.speaker-slide .speaker-name {
+  color: var(--toradex-blue) !important;
+  font-weight: bold;
+  font-size: 1.0em;
+  margin: 0.2em 0 0.1em 0;
+}
+
+.reveal .slides section.speaker-slide .speaker-role,
+.reveal .slides section.speaker-slide .speaker-company {
+  font-size: 0.8em;
+  margin: 0.1em 0;
+  color: var(--toradex-blue) !important;
+}
+
+.reveal .slides section.speaker-slide .speaker-location {
+  position: absolute;
+  bottom: 60px;
+  left: 75%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--toradex-blue);
 }
 
 /* --- Section divider slides (AGENDA, DEMO TIME!, etc.) ---
@@ -217,7 +265,7 @@
 /* Background image on main content slides — on the section so it scales
    with slide content at any resolution via reveal.js's transform.
    Special slide types excluded: #title-slide, .thank-you, .section-divider, .speaker-slide */
-.reveal .slides section:not(#title-slide):not(.thank-you):not(.section-divider):not(.speaker-slide) {
+.reveal .slides section:not(#title-slide):not(.thank-you):not(.section-divider) {
   background-image: url("img/main-slide-background.png");
   background-size: cover;
   background-position: center center;

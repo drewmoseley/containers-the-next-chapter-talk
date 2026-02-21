@@ -5,8 +5,17 @@
 ---
 
 ## WITH YOU TODAY… {.speaker-slide}
-Drew Moseley<br>
-Torizon Professional Services, Staff Developer, Toradex
+
+<div class="speaker-cards">
+<div class="speaker-card">
+<img src="img/headshot.png" alt="Drew Moseley">
+<p class="speaker-name">Drew Moseley</p>
+<p class="speaker-role">Torizon Professional Services, Staff Developer</p>
+<p class="speaker-company">Toradex</p>
+</div>
+</div>
+
+<p class="speaker-location">We're located in Lucerne, Switzerland</p>
 
 ---
 
