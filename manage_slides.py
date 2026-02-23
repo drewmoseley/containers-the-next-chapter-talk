@@ -2,7 +2,7 @@
 """
 manage_slides.py
 
-Insert or delete slide files in the `slides/` directory, maintaining
+Insert or delete slide files in the `sections/` directory, maintaining
 sequential numeric prefixes (NNN-*.md).
 
 Usage (from repo root):
@@ -20,7 +20,7 @@ Examples:
 
 Assumptions:
   - Slide files are named like: NNN-something.md (NNN = 3 digits)
-  - All slide files are under ./slides
+  - All slide files are under ./sections
 """
 
 import sys
@@ -28,7 +28,7 @@ import re
 from pathlib import Path
 from typing import NoReturn
 
-SLIDES_DIR = Path("slides")
+SLIDES_DIR = Path("sections")
 PATTERN = re.compile(r"^(\d{3})-(.+)\.md$")  # 3 digits now
 
 
@@ -55,7 +55,7 @@ def slugify(text: str) -> str:
 def load_slides() -> list[tuple[int, str, Path]]:
     if not SLIDES_DIR.is_dir():
         sys.exit(
-            f"Error: slides directory not found at '{SLIDES_DIR}'.\n"
+            f"Error: sections directory not found at '{SLIDES_DIR}'.\n"
             "manage_slides.py must be run from the repository root."
         )
 

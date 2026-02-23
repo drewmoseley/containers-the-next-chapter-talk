@@ -5,7 +5,7 @@ This repository contains the slide deck for the talk:
 > **Beyond Basic Containers for Embedded Linux**
 > Author: Drew Moseley
 
-Slides are authored in Markdown, split across multiple files under `slides/`,
+Slides are authored in Markdown, split across multiple files under `sections/`,
 and built into:
 
 - reveal.js HTML for presenting
@@ -13,7 +13,7 @@ and built into:
 
 ## Layout
 
-- `slides/` – individual Markdown slide sections (named `NNN-slug.md`)
+- `sections/` – individual Markdown slide sections (named `NNN-slug.md`)
 - `vendor/` – third-party dependencies (reveal.js)
 - `build/` – generated artifacts (not committed)
   - `containers-embedded.html` – reveal.js slides
@@ -56,7 +56,7 @@ and extract it to `vendor/reveal.js/`.
 
     make
 
-Both targets concatenate the `slides/*.md` files in numeric order and feed them
+Both targets concatenate the `sections/*.md` files in numeric order and feed them
 to pandoc.
 
 You can override Makefile variables from the command line:

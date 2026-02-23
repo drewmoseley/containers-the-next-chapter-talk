@@ -1,5 +1,5 @@
 PANDOC       ?= pandoc
-SLIDES_DIR   := slides
+SLIDES_DIR   := sections
 BUILD_DIR    := build
 
 SLIDES_MD    = $(sort $(wildcard $(SLIDES_DIR)/[0-9][0-9][0-9]-*.md))
