@@ -148,7 +148,6 @@
    Use in markdown: ## WITH YOU TODAY… {.speaker-slide} */
 .reveal .slides section.speaker-slide {
   color: var(--color-text);
-  position: relative;
 }
 .reveal .slides section.speaker-slide h1,
 .reveal .slides section.speaker-slide h2 {
