@@ -13,7 +13,7 @@
   --color-code-dark-fg: #f8f8f2; /* pre block foreground (Monokai) */
 
   /* Distance from slide title to body content */
-  --slide-title-gap:  50px;
+  --slide-title-gap:  70px;
 }
 
 /* --- Base reveal layout --- */
@@ -33,7 +33,7 @@
 */
 .reveal .slides section {
   /* top, right, bottom, left */
-  padding: 16px 112px 48px 112px;
+  padding: 56px 112px 48px 112px;
   box-sizing: border-box;
   /* Ensure section fills full slide height so background image covers
      edge-to-edge and scales correctly with content at any resolution */
@@ -51,7 +51,8 @@
   color: var(--toradex-blue);
 }
 .reveal h2 {
-  font-size: 1.6em;
+  font-size: 2.4em;
+  font-weight: 700;
   color: var(--toradex-blue);
 }
 .reveal h3 {
@@ -216,7 +217,7 @@
 .reveal .slides section.section-divider h2 {
   color: var(--color-white);
   border: none;
-  font-size: 2.2em;
+  font-size: 3.0em;
   margin-bottom: 0.3em;
 }
 .reveal .slides section.section-divider p {
