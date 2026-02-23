@@ -41,7 +41,16 @@
   - Presented with **Reveal.js** in the browser
   - Built with **pandoc** + a simple **Makefile**
   - Developed with help from **AI** (Claude Code)
+  - Tight integration into bot Visual Studio Code and Emacs
 - The source and examples are on [GitHub](https://github.com/drewmoseley/containers-the-next-chapter-talk)<sup>1</sup> if you're curious
+
+<div class="right-logos">
+<img src="img/markdown-color.svg" title="Markdown">
+<img src="img/revealdotjs-color.svg" title="Reveal.js">
+<img src="img/emacs-color.svg" title="GNU Emacs">
+<img src="img/vscode.svg" title="VS Code">
+<img src="img/claude-color.svg" title="Claude Code">
+</div>
 
 <p class="slide-footnote"><sup>1</sup> https://github.com/drewmoseley/containers-the-next-chapter-talk</p>
 

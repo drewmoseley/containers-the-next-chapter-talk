@@ -274,6 +274,44 @@
 
 /* Torizon logo is baked into main-slide-background.png at top-right */
 
+/* --- Inline tool logo row --- */
+.reveal .slides section .tool-logos {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  margin-top: 1.2em;
+}
+.reveal .slides section .tool-logos img {
+  height: 48px;
+  width: auto;
+}
+
+/* --- Right-side scattered logo panel ---
+   Wrap images in <div class="right-logos">.  Each img is placed on a
+   vertical ellipse spanning the right ~42% of the slide via :nth-child
+   rules; small translateX nudges give a hand-placed feel.
+   To support a different count, add matching :nth-child rules below. */
+.reveal .slides section .right-logos {
+  position: absolute;
+  left: 55%;
+  right: 90px;
+  top: 120px;
+  bottom: 60px;
+}
+.reveal .slides section .right-logos img {
+  position: absolute;
+  height: 130px;
+  width: auto;
+}
+/* 5-logo layout: pentagon inscribed in a vertical ellipse.
+   Angles: -90°, -18°, 54°, 126°, 198° (72° apart).
+   left/top are % of the container box; translate adds the nudge. */
+.reveal .slides section .right-logos img:nth-child(1) { left: 38%; top:  2%; transform: translateX( 15px); } /* top         */
+.reveal .slides section .right-logos img:nth-child(2) { left: 65%; top: 22%; transform: translateX(-18px); } /* upper-right */
+.reveal .slides section .right-logos img:nth-child(3) { left: 55%; top: 70%; transform: translateX( 22px); } /* lower-right */
+.reveal .slides section .right-logos img:nth-child(4) { left: 12%; top: 70%; transform: translateX(-15px); } /* lower-left  */
+.reveal .slides section .right-logos img:nth-child(5) { left:  2%; top: 22%; transform: translateX( 10px); } /* upper-left  */
+
 /* --- Slide footnote --- */
 .reveal .slides section .slide-footnote {
   position: absolute;
