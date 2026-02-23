@@ -34,6 +34,19 @@
 
 ---
 
+## Meta-Talk: A Note
+
+- This talk was also an excuse to experiment with new tools:
+  - Slides authored in **Markdown** (not PowerPoint)
+  - Presented with **Reveal.js** in the browser
+  - Built with **pandoc** + a simple **Makefile**
+  - Developed with help from **AI** (Claude Code)
+- The source and examples are on [GitHub](https://github.com/drewmoseley/containers-the-next-chapter-talk)<sup>1</sup> if you're curious
+
+<p class="slide-footnote"><sup>1</sup> https://github.com/drewmoseley/containers-the-next-chapter-talk</p>
+
+---
+
 ## Running Example
 
 - Simple embedded Linux device:

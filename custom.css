@@ -272,3 +272,15 @@
 }
 
 /* Torizon logo is baked into main-slide-background.png at top-right */
+
+/* --- Slide footnote --- */
+.reveal .slides section .slide-footnote {
+  position: absolute;
+  bottom: 48px;
+  left: 112px;
+  right: 112px;
+  text-align: left;
+  font-size: 0.72em;
+  color: var(--toradex-blue);
+  opacity: 0.75;
+}
