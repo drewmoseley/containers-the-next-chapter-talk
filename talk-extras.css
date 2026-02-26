@@ -1,6 +1,97 @@
 /* talk-extras.css — talk-specific styles for containers-embedded-talk
    Loaded after infra/custom.css via the EXTRA_CSS mechanism. */
 
+/* ================================================================
+   Title slide — Embedded World 2026 approved design
+   ================================================================ */
+
+/* Container illustration fills the right half; reset infra padding/bg */
+.reveal #title-slide {
+  background-image: url('img/title-slide-image.png') !important;
+  background-size: 44% auto !important;
+  background-position: right 5% center !important;
+  background-repeat: no-repeat !important;
+  background-color: white !important;
+  padding: 0 !important;
+}
+
+/* Green accent strip at bottom */
+.reveal #title-slide::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 18px;
+  background: var(--toradex-green);
+}
+
+/* Reset infra's 40% max-width on all children */
+.reveal #title-slide > * {
+  max-width: none !important;
+}
+
+/* ---- Logo bar: Toradex left, EW logo right ---- */
+.reveal #title-slide .title-logos {
+  position: absolute !important;
+  top: 0; left: 0; right: 0;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 16px 60px !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  margin-top: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.reveal #title-slide .title-logos img:first-child { height: 44px !important; width: auto !important; }
+.reveal #title-slide .title-logos img:last-child  { height: 56px !important; width: auto !important; }
+
+/* ---- Main title ---- */
+.reveal #title-slide h1 {
+  position: absolute !important;
+  top: 160px; left: 110px; right: 50%;
+  font-size: 2.8em !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
+}
+
+/* ---- Presenter block: headshot + info ---- */
+.reveal #title-slide p.author {
+  position: absolute !important;
+  bottom: 60px; left: 110px;
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+  max-width: 46% !important;
+  font-size: 1.0em !important;
+  line-height: 1.6 !important;
+  color: var(--color-text) !important;
+  margin: 0 !important;
+}
+
+.reveal #title-slide p.author img {
+  width: 90px !important;
+  height: 90px !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+}
+
+.reveal #title-slide p.author small {
+  display: block !important;
+  font-size: 0.78em !important;
+  color: #666 !important;
+}
+
+.reveal #title-slide p.author strong {
+  display: block !important;
+  color: var(--toradex-blue) !important;
+  font-size: 1.05em !important;
+}
+
+/* ---- Hide date (info on speaker slide) ---- */
+.reveal #title-slide p.date { display: none !important; }
+
 /* --- Embedded constraint cards ---
    Usage:
      <div class="constraint-cards">
