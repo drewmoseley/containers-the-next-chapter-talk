@@ -4,7 +4,7 @@ BOARD_HOST := verdin-imx8mm
 BOARD_USER := torizon
 TARBALL    := /tmp/$(IMAGE).tar
 
-.PHONY: all build deploy shell clean
+.PHONY: all build deploy shell size clean
 
 all: build
 
@@ -21,6 +21,10 @@ deploy: build
 
 shell:
 	ssh $(BOARD_USER)@$(BOARD_HOST)
+
+size:
+	@docker image ls --filter 'reference=dashboard-*' \
+	    --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'
 
 clean:
 	docker rmi $(IMAGE) 2>/dev/null || true

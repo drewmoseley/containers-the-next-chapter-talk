@@ -26,6 +26,7 @@
 - Embedded questions are different:
   - Flash is small
   - Networks are flaky
+  - Power can fail at any time
   - Devices live for *years*
 - Goal of this talk:
   - Take a naive embedded container setup
@@ -36,6 +37,7 @@
   - Reliable update delivery
   - Additional tools
   - CVE scanning
+
 ---
 
 ## Meta-Talk: A Note
@@ -60,19 +62,24 @@
 
 ---
 
-## Running Example
+## Step 0: Running Example
 
-- Simple embedded Linux device:
-  - Toradex Verdin i.MX8M Mini + Dahlia Carrier Board
-  - eMMC for storage
-  - Flaky Network
-  - Flaky Power
-- Baseline:
-  - Single container running a compiled application
-  - Built only for target arch
-  - Runs as root, based on Debian Trixie
-- We will:
-  - Refine build
-  - Convert to multiple services
-  - Improve performance
-  - Harden security
+- Toradex Verdin i.MX8M Mini + Dahlia Carrier Board, eMMC storage
+
+<div class="arch-diagram">
+<div class="arch-outer">
+<div class="arch-outer-label">debian:trixie &nbsp;·&nbsp; single container &nbsp;·&nbsp; runs as root</div>
+<div class="arch-services">
+<div class="arch-box">sensor<small>C daemon</small></div>
+<div class="arch-arrow"><span>writes</span><span class="arch-shaft">→</span></div>
+<div class="arch-file-box">/var/www/html/<br>data.json</div>
+<div class="arch-arrow"><span>serves</span><span class="arch-shaft">→</span></div>
+<div class="arch-box">nginx</div>
+</div>
+</div>
+<div class="arch-port-row">↓ &nbsp; port 80 → Browser</div>
+</div>
+
+| Step | Change | Image Size |
+| ---- | ------ | ---------- |
+| step0 | Baseline: single-stage, debian:trixie, build tools included | 498 MB |
