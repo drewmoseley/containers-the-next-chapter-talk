@@ -1,0 +1,107 @@
+/* talk-extras.css — talk-specific styles for containers-embedded-talk
+   Loaded after infra/custom.css via the EXTRA_CSS mechanism. */
+
+/* --- Architecture diagrams for container step slides ---
+   Usage:
+     <div class="arch-diagram">
+       <div class="arch-outer">
+         <div class="arch-outer-label">debian:trixie · runs as root</div>
+         <div class="arch-services">
+           <div class="arch-box">sensor<small>C daemon</small></div>
+           <div class="arch-arrow"><span>writes</span><span class="arch-shaft">→</span></div>
+           <div class="arch-file-box">/var/www/html/<br>data.json</div>
+           <div class="arch-arrow"><span>serves</span><span class="arch-shaft">→</span></div>
+           <div class="arch-box">nginx</div>
+         </div>
+       </div>
+       <div class="arch-port-row">↓ &nbsp; port 80</div>
+     </div>
+*/
+.reveal .slides section .arch-diagram {
+  margin-top: 1em;
+  font-size: 0.85em;
+}
+
+.reveal .slides section .arch-outer {
+  border: 3px dashed var(--toradex-blue);
+  border-radius: 8px;
+  padding: 32px 40px 28px 40px;
+  background: rgba(0, 59, 100, 0.03);
+  position: relative;
+  display: inline-block;
+}
+
+.reveal .slides section .arch-outer-label {
+  position: absolute;
+  top: -0.7em;
+  left: 1.2em;
+  background: white;
+  padding: 0 0.5em;
+  font-weight: bold;
+  color: var(--toradex-blue);
+}
+
+.reveal .slides section .arch-services {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.reveal .slides section .arch-box {
+  border: 2px solid var(--toradex-blue);
+  border-radius: 4px;
+  padding: 0.5em 1.2em;
+  background: white;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-weight: bold;
+  color: var(--toradex-blue);
+  text-align: center;
+  line-height: 1.4;
+  min-width: 6em;
+}
+
+.reveal .slides section .arch-box small {
+  display: block;
+  font-weight: normal;
+  font-size: 0.75em;
+  color: #888;
+}
+
+.reveal .slides section .arch-file-box {
+  border: 2px solid var(--toradex-green);
+  border-radius: 4px;
+  padding: 0.5em 1.0em;
+  background: white;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 0.85em;
+  color: #333;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.reveal .slides section .arch-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0.7em;
+  color: #888;
+  font-size: 0.75em;
+  white-space: nowrap;
+}
+
+.reveal .slides section .arch-shaft {
+  font-size: 1.8em;
+  line-height: 0.8;
+  color: #bbb;
+}
+
+.reveal .slides section .arch-port-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 0.5em;
+  padding-left: 1em;
+  color: var(--toradex-green);
+  font-weight: bold;
+  font-size: 0.9em;
+}
