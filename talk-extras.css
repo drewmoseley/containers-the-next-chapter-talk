@@ -1,6 +1,54 @@
 /* talk-extras.css — talk-specific styles for containers-embedded-talk
    Loaded after infra/custom.css via the EXTRA_CSS mechanism. */
 
+/* --- Embedded constraint cards ---
+   Usage:
+     <div class="constraint-cards">
+       <div class="constraint-card">
+         <div class="constraint-icon">💾</div>
+         <div class="constraint-title">Storage</div>
+         <div class="constraint-desc">Flash is small</div>
+       </div>
+       ...
+     </div>
+*/
+.reveal .slides section .constraint-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin: 1.2em 0 0 0;
+}
+
+.reveal .slides section .constraint-card {
+  border: 1px solid var(--color-border);
+  border-top: 6px solid var(--toradex-green);
+  border-radius: 4px;
+  padding: 1.6em 1.2em;
+  text-align: center;
+  background: rgba(0, 59, 100, 0.02);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.reveal .slides section .constraint-icon {
+  font-size: 4em;
+  line-height: 1.1;
+}
+
+.reveal .slides section .constraint-title {
+  font-weight: bold;
+  color: var(--toradex-blue);
+  font-size: 1.3em;
+  margin: 0.4em 0 0.25em;
+}
+
+.reveal .slides section .constraint-desc {
+  font-size: 1.0em;
+  color: var(--color-text);
+}
+
 /* --- Architecture diagrams for container step slides ---
    Usage:
      <div class="arch-diagram">

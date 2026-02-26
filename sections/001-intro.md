@@ -21,22 +21,22 @@
 
 ## Why Containers *Beyond* the Basics?
 
-- We already know:
-  - `Dockerfile`, `docker run`, basic images
-- Embedded questions are different:
-  - Flash is small
-  - Networks are flaky
-  - Power can fail at any time
-  - Devices live for *years*
-- Goal of this talk:
-  - Take a naive embedded container setup
-  - Turn it into something production-grade
-  - Focus on size, performance, and lifecycle
-  - _Basic_ security will be discussed
-- Other topics
-  - Reliable update delivery
-  - Additional tools
-  - CVE scanning
+We already know: `docker build`, `docker run`, basic images. Embedded is different:
+
+<div class="constraint-cards">
+<div class="constraint-card fragment"><div class="constraint-icon">💾</div>
+<div class="constraint-title">Storage</div>
+<div class="constraint-desc">Flash is small</div></div>
+<div class="constraint-card fragment"><div class="constraint-icon">📡</div>
+<div class="constraint-title">Network</div>
+<div class="constraint-desc">Connectivity is unreliable</div></div>
+<div class="constraint-card fragment"><div class="constraint-icon">⚡</div>
+<div class="constraint-title">Power</div>
+<div class="constraint-desc">Can fail at any time</div></div>
+<div class="constraint-card fragment"><div class="constraint-icon">🕐</div>
+<div class="constraint-title">Longevity</div>
+<div class="constraint-desc">Devices live for years</div></div>
+</div>
 
 ---
 
