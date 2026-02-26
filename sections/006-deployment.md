@@ -32,7 +32,7 @@
   - Holds signed, multi-arch images
 - Edge mirrors:
   - Site-local registry to save bandwidth
-  - Devices pull from nearby source
+  - Devices pull from nearby source (pull-through cache)
 - Consider:
   - Authentication and authorization to registry
   - Rate limits for large fleets

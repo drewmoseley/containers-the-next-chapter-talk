@@ -30,8 +30,12 @@
 - Goal of this talk:
   - Take a naive embedded container setup
   - Turn it into something production-grade
-  - Focus on size, performance, security, and lifecycle
-
+  - Focus on size, performance, and lifecycle
+  - _Basic_ security will be discussed
+- Other topics
+  - Reliable update delivery
+  - Additional tools
+  - CVE scanning
 ---
 
 ## Meta-Talk: A Note
@@ -59,15 +63,16 @@
 ## Running Example
 
 - Simple embedded Linux device:
-  - ARM-based SoC
-  - eMMC/SD for storage
-  - Network sometimes good, sometimes terrible
+  - Toradex Verdin i.MX8M Mini + Dahlia Carrier Board
+  - eMMC for storage
+  - Flaky Network
+  - Flaky Power
 - Baseline:
-  - App in a single, naive image
+  - Single container running a compiled application
   - Built only for target arch
-  - Runs as root, with a fat base distro
+  - Runs as root, based on Debian Trixie
 - We will:
   - Refine build
+  - Convert to multiple services
   - Improve performance
   - Harden security
-  - Improve update workflows
