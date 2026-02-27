@@ -1,4 +1,4 @@
-## 1. Smarter Builds: Multi-Stage Patterns
+## Smarter Builds: Multi-Stage Patterns
 
 - Multi-stage builds:
   - `builder` image with toolchains, headers, debug tools
@@ -6,12 +6,15 @@
 - Benefits:
   - Smaller images
   - Fewer CVEs
-  - No build tools on device
-- Common embedded patterns:
+  - Fewer packages installed on device
+- Additional common patterns:
   - Strip binaries (`strip`, `objcopy`) in builder
   - Separate “debug image” vs “production image”
 
-**Key idea:** Use the builder as a workshop, the runtime as the shipping container.
+<br><br><br>
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> Use the builder as a workshop, the runtime as the shipping container.</p>
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea #2:</strong> Container images as code.</p>
 
 ---
 
@@ -30,7 +33,7 @@
 
 ---
 
-## 2. Multi-Architecture Builds as a First-Class Concern
+## Multi-Architecture Builds as a First-Class Concern
 
 - Typical scenario:
   - x86_64 dev machines
