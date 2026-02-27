@@ -140,6 +140,98 @@
   color: var(--color-text);
 }
 
+/* --- Two-column slide layout ---
+   Usage: <div class="slide-columns"><div class="slide-col-left">...</div><div class="slide-col-right">...</div></div>
+*/
+.reveal .slides section .slide-columns {
+  display: flex;
+  gap: 3em;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.reveal .slides section .slide-col-left  { flex: 1; }
+.reveal .slides section .slide-col-right { flex: 1; }
+
+/* --- Code window (fake macOS-style editor window) ---
+   Usage:
+     <div class="code-window">
+       <div class="code-window-titlebar">
+         <span class="cw-dot cw-red"></span>
+         <span class="cw-dot cw-yellow"></span>
+         <span class="cw-dot cw-green"></span>
+         <span class="cw-filename">Dockerfile</span>
+       </div>
+       <pre class="code-window-body">...</pre>
+     </div>
+*/
+.reveal .slides section .code-window {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 32px rgba(0,0,0,0.5);
+  text-align: left;
+}
+
+/* Solarized Dark titlebar: base02 */
+.reveal .slides section .code-window-titlebar {
+  background: #073642;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.reveal .slides section .cw-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.reveal .slides section .cw-red    { background: #ff5f57; }
+.reveal .slides section .cw-yellow { background: #febc2e; }
+.reveal .slides section .cw-green  { background: #28c840; }
+
+.reveal .slides section .cw-filename {
+  color: #93a1a1;  /* Solarized base1 */
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 0.82em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* pandoc wraps inline content in <p>; make it transparent so titlebar flex applies to the spans */
+.reveal .slides section .code-window-titlebar p {
+  margin: 0;
+  display: contents;
+}
+
+/* Solarized Dark code body: base03 bg, base1 text */
+.reveal .slides section .code-window pre,
+.reveal .slides section .code-window pre code {
+  background: #002b36 !important;  /* Solarized base03 */
+  color: #93a1a1 !important;        /* Solarized base1 */
+  font-family: "Fira Code", "Source Code Pro", monospace !important;
+  font-size: 0.85em !important;
+  line-height: 1.38 !important;
+  text-align: left !important;
+  box-shadow: none !important;
+}
+
+.reveal .slides section .code-window pre {
+  margin: 0 !important;
+  padding: 0.8em 1.2em !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+.reveal .slides section .code-window pre code {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
 /* --- Architecture diagrams for container step slides ---
    Usage:
      <div class="arch-diagram">
