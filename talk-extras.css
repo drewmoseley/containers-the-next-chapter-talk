@@ -336,3 +336,32 @@
   font-weight: bold;
   font-size: 0.9em;
 }
+
+/* --- Two-container arch diagram (microservices) ---
+   Usage: wrap two .arch-outer elements in .arch-two-col with a
+   .arch-vol-connector between them.
+*/
+.reveal .slides section .arch-two-col {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.reveal .slides section .arch-vol-connector {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0 0.5em;
+}
+
+.reveal .slides section .arch-volume-box {
+  border: 2px dashed #888;
+  border-radius: 4px;
+  padding: 0.4em 0.8em;
+  font-family: "Fira Code", "Source Code Pro", monospace;
+  font-size: 0.78em;
+  color: #666;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.02);
+  white-space: nowrap;
+}
