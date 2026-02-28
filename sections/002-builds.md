@@ -61,18 +61,28 @@ CMD [“/usr/local/bin/dashboard”]
 
 ---
 
-## Multi-Stage: Before and After
+## Step 1: Running Example
 
-- Naive Dockerfile:
-  - One huge image
-  - `build-essential`, `git`, `python`, etc. shipped to the device
-- Refactored:
-  - Stage 1: build + strip
-  - Stage 2: copy single binary + minimal runtime deps
-- Show (in demo / notes):
-  - Image size delta
-  - Startup time delta
-  - Security scan delta
+- Same app, same board — only the Dockerfile changed
+
+<div class="arch-diagram">
+<div class="arch-outer">
+<div class="arch-outer-label">debian:trixie-slim &nbsp;·&nbsp; single container &nbsp;·&nbsp; runs as root</div>
+<div class="arch-services">
+<div class="arch-box">sensor<small>C daemon</small></div>
+<div class="arch-arrow"><span>writes</span><span class="arch-shaft">→</span></div>
+<div class="arch-file-box">/var/www/html/<br>data.json</div>
+<div class="arch-arrow"><span>serves</span><span class="arch-shaft">→</span></div>
+<div class="arch-box">nginx</div>
+</div>
+</div>
+<div class="arch-port-row">↓ &nbsp; port 80 → Browser</div>
+</div>
+
+| Step | Change | Image Size |
+| ---- | ------ | ---------- |
+| step0 | Baseline: single-stage, debian:trixie, build tools included | 498 MB |
+| step1 | Multi-stage: debian:trixie-slim runtime, no build tools | 112 MB |
 
 ---
 
