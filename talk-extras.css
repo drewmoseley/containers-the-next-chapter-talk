@@ -92,6 +92,80 @@
 /* ---- Hide date (info on speaker slide) ---- */
 .reveal #title-slide p.date { display: none !important; }
 
+/* ================================================================
+   Thank You slide — full-bleed background, overlay left content
+   ================================================================ */
+
+.reveal #thank-you-slide {
+  background-image: url('img/thank-you-slide.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  padding: 0 !important;
+}
+
+/* Green accent strip at bottom (covers left half; right half already in image) */
+.reveal #thank-you-slide::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 18px;
+  background: var(--toradex-green);
+}
+
+/* Reset max-width on all children */
+.reveal #thank-you-slide > * { max-width: none !important; }
+
+/* Hide auto-generated h2 */
+.reveal #thank-you-slide h2 { display: none !important; }
+
+/* ---- Toradex logo bar at top ---- */
+.reveal #thank-you-slide .ty-logo-bar {
+  position: absolute !important;
+  top: 0; left: 0; right: 0;
+  display: flex !important;
+  align-items: center !important;
+  padding: 16px 60px !important;
+  box-sizing: border-box !important;
+}
+
+.reveal #thank-you-slide .ty-logo-bar img {
+  height: 44px !important;
+  width: auto !important;
+}
+
+/* ---- Main text block ---- */
+.reveal #thank-you-slide .ty-content {
+  position: absolute !important;
+  top: 180px; left: 110px; right: 55%;
+}
+
+.reveal #thank-you-slide .ty-heading {
+  font-size: 2.6em !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  color: var(--toradex-blue) !important;
+  text-transform: uppercase !important;
+  margin: 0 0 0.7em 0 !important;
+}
+
+.reveal #thank-you-slide .ty-urls {
+  font-size: 1.0em !important;
+  line-height: 2.0 !important;
+  color: #333 !important;
+}
+
+/* ---- EW logo bottom-left ---- */
+.reveal #thank-you-slide .ty-bottom {
+  position: absolute !important;
+  bottom: 28px; left: 60px;
+}
+
+.reveal #thank-you-slide .ty-bottom img {
+  height: 52px !important;
+  width: auto !important;
+}
+
 /* --- Embedded constraint cards ---
    Usage:
      <div class="constraint-cards">

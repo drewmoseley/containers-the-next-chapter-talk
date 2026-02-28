@@ -1,10 +1,19 @@
-## Thank You {.thank-you}
+## Thank You {#thank-you-slide}
 
+<div class="ty-logo-bar">
+<img src="img/toradex-logo.png">
+</div>
 
-THANK YOU
-FOR YOUR INTEREST
+<div class="ty-content">
+<div class="ty-heading">THANK YOU<br>FOR YOUR INTEREST</div>
+<div class="ty-urls">
+www.<strong>toradex</strong>.com<br>
+www.<strong>torizon</strong>.io<br>
+<strong>developer</strong>.toradex.com<br>
+<strong>community</strong>.toradex.com
+</div>
+</div>
 
-www.torizon.io
-www.toradex.com
-developer.toradex.com
-community.toradex.com
+<div class="ty-bottom">
+<img src="img/EWLogo.png">
+</div>
