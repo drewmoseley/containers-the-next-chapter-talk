@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Device Dashboard</title>
+  <style>
+    body   { font-family: monospace; background: #1a1a2e; color: #eee;
+             padding: 2em; margin: 0; }
+    h1     { color: #00d4ff; margin-bottom: 1.5em; }
+    .card  { background: #16213e; border: 1px solid #0f3460;
+             border-radius: 6px; padding: 1em 1.5em; margin-bottom: 1em;
+             max-width: 480px; }
+    .label { color: #aaa; font-size: 0.85em; text-transform: uppercase;
+             letter-spacing: 0.05em; }
+    .value { color: #00ff88; font-size: 1.6em; font-weight: bold;
+             margin-top: 0.2em; }
+    .ts    { color: #555; font-size: 0.8em; margin-top: 2em; }
+  </style>
+</head>
+<body>
+  <h1>Device Dashboard</h1>
+
+  <div class="card">
+    <div class="label">CPU Temperature</div>
+    <div class="value" id="temp">--</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Load Average (1m / 5m / 15m)</div>
+    <div class="value" id="load">--</div>
+  </div>
+
+  <div class="card">
+    <div class="label">Uptime</div>
+    <div class="value" id="uptime">--</div>
+  </div>
+
+  <div class="ts">Last updated: <span id="ts">--</span></div>
+
+  <script>
+    function fmtUptime(sec) {
+      const h = Math.floor(sec / 3600);
+      const m = Math.floor((sec % 3600) / 60);
+      const s = Math.floor(sec % 60);
+      return h + 'h ' + m + 'm ' + s + 's';
+    }
+
+    function refresh() {
+      fetch('/data.json?' + Date.now())
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          document.getElementById('temp').textContent   = d.cpu_temp_c + ' °C';
+          document.getElementById('load').textContent   =
+              d.load_avg['1m'] + ' / ' + d.load_avg['5m'] + ' / ' + d.load_avg['15m'];
+          document.getElementById('uptime').textContent = fmtUptime(d.uptime_seconds);
+          document.getElementById('ts').textContent     = d.timestamp;
+        })
+        .catch(function() {
+          document.getElementById('ts').textContent = 'fetch failed';
+        });
+    }
+
+    refresh();
+    setInterval(refresh, 5000);
+  </script>
+</body>
+</html>

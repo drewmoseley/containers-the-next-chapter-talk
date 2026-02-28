@@ -1,0 +1,19 @@
+services:
+  sensor:
+    image: dashboard-step3-sensor
+    volumes:
+      - dashboard-data:/data
+    restart: unless-stopped
+
+  web:
+    image: dashboard-step3-web
+    volumes:
+      - dashboard-data:/data:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - sensor
+    restart: unless-stopped
+
+volumes:
+  dashboard-data:

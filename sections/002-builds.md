@@ -180,6 +180,100 @@ volumes:
 
 ---
 
+## Minimal Base Images: Distroless / Scratch
+
+:::: {.slide-columns}
+
+::: {.slide-col-left}
+
+- Traditional base images include shell, package manager, libraries
+- Minimal options:
+  - **Distroless** (Google) — no shell, no package manager, just runtime libs
+  - **Chiselled** (Canonical) — Ubuntu with everything non-essential removed
+  - **`scratch`** — empty filesystem; fully static binaries only
+- Why it matters for embedded:
+  - Smaller flash footprint
+  - Fewer packages to patch
+  - Smaller CVE surface
+- Choosing the right distroless variant:
+  - `distroless/base` — glibc included (C/C++ programs)
+  - `distroless/static` — nothing; statically compiled binaries only
+  - `distroless/cc` — glibc + libstdc++ (C++ programs)
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Tradeoff:</strong> Great for production; need a separate path for debugging.</p>
+
+:::
+
+::: {.slide-col-right}
+
+::::: {.code-window}
+
+:::: {.code-window-titlebar}
+[]{.cw-dot .cw-red}[]{.cw-dot .cw-yellow}[]{.cw-dot .cw-green}[web/Dockerfile]{.cw-filename}
+::::
+
+```
+# ── Builder ────────────────────────────────
+FROM golang:alpine AS builder
+
+WORKDIR /build
+COPY go.mod main.go ./
+RUN CGO_ENABLED=0 GOOS=linux \
+    go build -ldflags="-s -w" -o web .
+
+# ── Runtime: truly nothing ──────────────────
+FROM gcr.io/distroless/static
+
+COPY --from=builder /build/web /web
+COPY html/ /www/
+
+CMD ["/web"]
+```
+
+:::::
+
+:::
+
+::::
+
+---
+
+## Step 3: Running Example
+
+- Same architecture as step 2 — only the `FROM` lines changed
+
+<div class="arch-diagram">
+<div class="arch-two-col">
+<div class="arch-outer">
+<div class="arch-outer-label">sensor &nbsp;·&nbsp; distroless/base</div>
+<div class="arch-services">
+<div class="arch-box">sensor<small>C daemon</small></div>
+</div>
+</div>
+<div class="arch-vol-connector">
+<div class="arch-arrow"><span>writes</span><span class="arch-shaft">→</span></div>
+<div class="arch-volume-box">dashboard-data<br><small>named volume</small></div>
+<div class="arch-arrow"><span>reads</span><span class="arch-shaft">→</span></div>
+</div>
+<div class="arch-outer">
+<div class="arch-outer-label">web &nbsp;·&nbsp; distroless/static</div>
+<div class="arch-services">
+<div class="arch-box">web<small>Go fileserver</small></div>
+</div>
+</div>
+</div>
+<div class="arch-port-row">↓ &nbsp; port 8080 → Browser</div>
+</div>
+
+| Step | Change | Image Size |
+| ---- | ------ | ---------- |
+| step0 | Baseline: single-stage, debian:trixie, build tools included | 498 MB |
+| step1 | Multi-stage: debian:trixie-slim runtime, no build tools | 112 MB |
+| step2 | Microservices: sensor + nginx, named volume | 101 + 112 MB = 213 MB naïve; **~112 MB on disk** (shared base) |
+| step3 | Distroless: sensor (35 MB) + Go web (7.6 MB) | **~40 MB on disk** |
+
+---
+
 ## Multi-Architecture Builds as a First-Class Concern
 
 - Typical scenario:
