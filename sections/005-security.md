@@ -51,8 +51,9 @@ Topics we’ll cover:
 
 - Avoid `--privileged` by default
 - Drop root where possible:
-  - Run as non-root user inside containers
-  - Consider user namespaces
+  - Run as non-root user inside containers (`USER` / `:nonroot` tags)
+  - Consider user namespaces (`--userns-remap` in Docker daemon config)
+  - Rootless Docker/containerd: run the daemon itself without root — requires host kernel + `/etc/subuid` setup (TODO: expand)
 - Limit capabilities:
   - Add only what you need (`CAP_NET_RAW`, etc.)
   - Remove the rest

@@ -273,6 +273,99 @@ CMD ["/web"]
 
 ---
 
+## Non-root Containers
+
+:::: {.slide-columns}
+
+::: {.slide-col-left}
+
+- Running as root inside a container is still a risk:
+  - Container escape → root on host
+  - Accidental writes to system paths
+- Solution: run as an unprivileged user
+  - `USER` instruction in the Dockerfile
+  - Or use distroless `:nonroot` tags — uid 65532 baked in, no extra steps
+- Requirements for your app:
+  - Must not bind privileged ports (< 1024)
+  - Must not write to root-owned paths
+  - Data volumes must be writable by the non-root uid
+
+:::
+
+::: {.slide-col-right}
+
+::::: {.code-window}
+
+:::: {.code-window-titlebar}
+[]{.cw-dot .cw-red}[]{.cw-dot .cw-yellow}[]{.cw-dot .cw-green}[sensor/Dockerfile]{.cw-filename}
+::::
+
+```
+# ── Builder ────────────────────────────────
+FROM debian:trixie-slim AS builder
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY sensor.c .
+RUN gcc -o sensor sensor.c && strip sensor
+
+# ── Runtime: nonroot ────────────────────────
+FROM gcr.io/distroless/base:nonroot
+
+COPY --from=builder /sensor /sensor
+
+CMD ["/sensor", "/data/sensor.json"]
+```
+
+:::::
+
+:::
+
+::::
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> Least privilege applies inside containers too.</p>
+
+---
+
+## Step 4: Running Example
+
+- Same architecture as step 3 — only the image tags changed
+
+<div class="arch-diagram">
+<div class="arch-two-col">
+<div class="arch-outer">
+<div class="arch-outer-label">sensor &nbsp;·&nbsp; distroless/base:nonroot</div>
+<div class="arch-services">
+<div class="arch-box">sensor<small>C daemon</small></div>
+</div>
+</div>
+<div class="arch-vol-connector">
+<div class="arch-arrow"><span>writes</span><span class="arch-shaft">→</span></div>
+<div class="arch-volume-box">dashboard-data<br><small>named volume</small></div>
+<div class="arch-arrow"><span>reads</span><span class="arch-shaft">→</span></div>
+</div>
+<div class="arch-outer">
+<div class="arch-outer-label">web &nbsp;·&nbsp; distroless/static:nonroot</div>
+<div class="arch-services">
+<div class="arch-box">web<small>Go fileserver</small></div>
+</div>
+</div>
+</div>
+<div class="arch-port-row">↓ &nbsp; port 8080 → Browser</div>
+</div>
+
+| Step | Change | Image Size |
+| ---- | ------ | ---------- |
+| step0 | Baseline: single-stage, debian:trixie, build tools included | 498 MB |
+| step1 | Multi-stage: debian:trixie-slim runtime, no build tools | 112 MB |
+| step2 | Microservices: sensor + nginx, named volume | 101 + 112 MB = 213 MB naïve; **~112 MB on disk** (shared base) |
+| step3 | Distroless: sensor (35 MB) + Go web (7.6 MB) | **~40 MB on disk** |
+| step4 | Nonroot: `:nonroot` distroless tags, uid 65532 | **~40 MB on disk** (same size) |
+
+---
+
 ## Multi-Architecture Builds as a First-Class Concern
 
 - Typical scenario:
