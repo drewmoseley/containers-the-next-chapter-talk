@@ -19,10 +19,7 @@ Topics we’ll cover:
 
 ## Trusted Base Images & SBOMs
 
-- Choose curated bases:
-  - Distroless
-  - Chiselled
-  - Vendor-maintained images
+- Choose curated bases (distroless, chiselled, vendor-maintained — as shown in steps 3 & 4)
 - SBOM (Software Bill of Materials):
   - SPDX / CycloneDX formats
   - List of libraries and versions in each image
@@ -51,7 +48,7 @@ Topics we’ll cover:
 
 - Avoid `--privileged` by default
 - Drop root where possible:
-  - Run as non-root user inside containers (`USER` / `:nonroot` tags)
+  - `:nonroot` distroless tags — as demonstrated in step 4
   - Consider user namespaces (`--userns-remap` in Docker daemon config)
   - Rootless Docker/containerd: run the daemon itself without root — requires host kernel + `/etc/subuid` setup (TODO: expand)
 - Limit capabilities:
