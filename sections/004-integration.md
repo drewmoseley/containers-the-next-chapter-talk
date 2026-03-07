@@ -1,4 +1,8 @@
-## 7. Embedded Integration: OS, Devices, and Boot
+## Embedded Integration {.section-title}
+
+---
+
+## Embedded Integration: OS, Devices, and Boot
 
 - Containers don’t replace the OS
 - The host still handles:

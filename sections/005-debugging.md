@@ -1,4 +1,8 @@
-## 8. Debugging in Production
+## Debugging in Production {.section-title}
+
+---
+
+## Debugging in Production
 
 - Problem:
   - Minimal / distroless images are great… until something breaks

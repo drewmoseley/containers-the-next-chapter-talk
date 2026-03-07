@@ -166,6 +166,27 @@
   width: auto !important;
 }
 
+/* --- Section title slides ---
+   Usage: ## Section Name {.section-title}
+   Centers the heading vertically and horizontally on the slide.
+*/
+.reveal .slides section:has(> h2.section-title) {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.reveal h2.section-title {
+  font-size: 3.5em !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  color: var(--toradex-blue) !important;
+  border-bottom: 4px solid var(--toradex-green);
+  padding-bottom: 0.3em;
+}
+
 /* --- Embedded constraint cards ---
    Usage:
      <div class="constraint-cards">

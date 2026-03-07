@@ -62,6 +62,10 @@ We already know: `docker build`, `docker run`, basic images. Embedded is differe
 
 ---
 
+## Image Design {.section-title}
+
+---
+
 ## Beginner Setup
 
 :::: {.slide-columns}

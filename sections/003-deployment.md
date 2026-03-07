@@ -1,3 +1,7 @@
+## Deployment & Updates {.section-title}
+
+---
+
 ## Layer Reuse
 
 :::: {.slide-columns}
