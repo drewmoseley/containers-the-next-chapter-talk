@@ -1,4 +1,4 @@
-## 9. Putting It All Together
+## Putting It All Together
 
 We started with:
 
@@ -20,15 +20,3 @@ We end with:
   - Debugging
 
 <p class="fragment" style="font-size: 1.2em;"><strong>Key takeaway:</strong> Containers <em>can</em> be right for embedded—but only if we design with embedded constraints in mind.</p>
-
----
-
-## Questions / Discussion
-
-- What constraints are hardest in your environment?
-- Where do containers help you the most?
-- Where do they hurt?
-
-Contact:
-- Drew Moseley
-- {email / handle / URL}
