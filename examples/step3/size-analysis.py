@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compute on-disk footprint for dashboard-step2-* images, counting shared layers once."""
+"""Compute on-disk footprint for dashboard-step3-* images, counting shared layers once."""
 
 import subprocess, json, re, sys
 
@@ -23,7 +23,7 @@ if len(sys.argv) > 1:
     ls = sys.argv[1:]
 else:
     ls = subprocess.check_output(
-        ["docker", "image", "ls", "--filter", "reference=dashboard-step2-*",
+        ["docker", "image", "ls", "--filter", "reference=dashboard-step3-*",
          "--format", "{{.Repository}}:{{.Tag}}"],
         text=True,
     ).strip().splitlines()
