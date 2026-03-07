@@ -62,6 +62,66 @@ We already know: `docker build`, `docker run`, basic images. Embedded is differe
 
 ---
 
+## Step 0: Beginner Setup
+
+:::: {.slide-columns}
+
+::: {.slide-col-left}
+
+- Single Dockerfile (stage - details later):
+  - Full Debian image
+  - Build tools in the running image
+  - Intermediate build outputs also in the running image
+- Problems:
+  - Large Image: 498 MB
+  - Large base image = bigger attack surface
+  - No separation of concerns (sensor + nginx in one contaner)
+  - Runs as root
+
+<br>
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> What you build with ≠ what you need to run.</p>
+
+:::
+
+::: {.slide-col-right}
+
+::::: {.code-window}
+
+:::: {.code-window-titlebar}
+[]{.cw-dot .cw-red}[]{.cw-dot .cw-yellow}[]{.cw-dot .cw-green}[Dockerfile]{.cw-filename}
+::::
+
+```
+FROM debian:trixie
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    nginx \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY sensor.c .
+RUN gcc -o sensor sensor.c
+
+COPY html/ /var/www/html/
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
+EXPOSE 80
+
+CMD ["/app/entrypoint.sh"]
+```
+
+:::::
+
+:::
+
+::::
+
+---
+
 ## Step 0: Running Example
 
 - Toradex Verdin i.MX8M Mini + Dahlia Carrier Board, eMMC storage
