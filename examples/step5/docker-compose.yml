@@ -1,0 +1,19 @@
+services:
+  sensor:
+    image: ghcr.io/example/dashboard/sensor:step5
+    volumes:
+      - dashboard-data:/data
+    restart: unless-stopped
+
+  web:
+    image: ghcr.io/example/dashboard/web:step5
+    volumes:
+      - dashboard-data:/data:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - sensor
+    restart: unless-stopped
+
+volumes:
+  dashboard-data:

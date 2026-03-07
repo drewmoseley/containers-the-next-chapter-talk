@@ -366,18 +366,102 @@ CMD ["/sensor", "/data/sensor.json"]
 
 ---
 
-## Multi-Architecture Builds as a First-Class Concern
+## Multi-Architecture Builds
 
-- Typical scenario:
-  - x86_64 dev machines
-  - ARMv7 / AArch64 targets
-- Goals:
-  - Same tag runs on both
-  - Reproducible builds
-- Techniques:
-  - `docker buildx build --platform linux/amd64,linux/arm64 ...`
-  - QEMU for cross-builds vs native builders
-- Benefits:
-  - Devs test locally on x86
-  - CI builds images for all target architectures
-  - Simplified tooling: one image name, multiple arches
+:::: {.slide-columns}
+
+::: {.slide-col-left}
+
+- Problem: dev machines are x86, boards are ARMv7 or AArch64
+- Solution: OCI manifest lists — one tag, multiple platform blobs
+  - `docker pull` fetches the right blob automatically
+  - No per-device Dockerfile changes
+- Requirements:
+  - `docker buildx` with a multi-platform builder
+  - QEMU binfmt handlers on the build host (or native builders)
+  - A registry to push to — `--load` only works for single-platform
+- Platforms in this talk:
+  - `linux/amd64` — dev machines
+  - `linux/arm/v7` — 32-bit ARM boards
+  - `linux/arm64` — AArch64 boards (Verdin iMX8M Mini)
+
+:::
+
+::: {.slide-col-right}
+
+::::: {.code-window}
+
+:::: {.code-window-titlebar}
+[]{.cw-dot .cw-red}[]{.cw-dot .cw-yellow}[]{.cw-dot .cw-green}[Makefile]{.cw-filename}
+::::
+
+```
+REGISTRY := ghcr.io/example/dashboard
+TAG      := step5
+PLATFORMS := linux/amd64,linux/arm/v7,linux/arm64
+
+build:
+	docker buildx build \
+	    --platform $(PLATFORMS) \
+	    --push \
+	    -t $(REGISTRY)/sensor:$(TAG) \
+	    sensor/
+	docker buildx build \
+	    --platform $(PLATFORMS) \
+	    --push \
+	    -t $(REGISTRY)/web:$(TAG) \
+	    web/
+
+deploy:
+	scp docker-compose.yml \
+	    $(BOARD_USER)@$(BOARD_HOST):/tmp/
+	ssh $(BOARD_USER)@$(BOARD_HOST) \
+	    "docker compose -f /tmp/docker-compose.yml \
+	     pull && up -d"
+```
+
+:::::
+
+:::
+
+::::
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> One image name serves every architecture — the registry does the dispatch.</p>
+
+---
+
+## Step 5: Running Example
+
+- Same app, same Dockerfiles — only the build command changed
+
+<div class="arch-diagram">
+<div class="arch-two-col">
+<div class="arch-outer">
+<div class="arch-outer-label">sensor &nbsp;·&nbsp; distroless/base:nonroot</div>
+<div class="arch-services">
+<div class="arch-box">sensor<small>C daemon</small></div>
+</div>
+</div>
+<div class="arch-vol-connector">
+<div class="arch-arrow"><span>writes</span><span class="arch-shaft">→</span></div>
+<div class="arch-volume-box">dashboard-data<br><small>named volume</small></div>
+<div class="arch-arrow"><span>reads</span><span class="arch-shaft">→</span></div>
+</div>
+<div class="arch-outer">
+<div class="arch-outer-label">web &nbsp;·&nbsp; distroless/static:nonroot</div>
+<div class="arch-services">
+<div class="arch-box">web<small>Go fileserver</small></div>
+</div>
+</div>
+</div>
+<div class="arch-port-row">↓ &nbsp; port 8080 → Browser &nbsp;·&nbsp; same image on amd64 / arm/v7 / arm64</div>
+</div>
+
+| Step | Change | Image Size |
+| ---- | ------ | ---------- |
+| step0 | Baseline: single-stage, debian:trixie, build tools included | 498 MB |
+| step1 | Multi-stage: debian:trixie-slim runtime, no build tools | 112 MB |
+| step2 | Microservices: sensor + nginx, named volume | 101 + 112 MB = 213 MB naïve; **~112 MB on disk** (shared base) |
+| step3 | Distroless: sensor (35 MB) + Go web (7.6 MB) | **~40 MB on disk** |
+| step4 | Nonroot: `:nonroot` distroless tags, uid 65532 | **~40 MB on disk** (same size) |
+| step5 | Multi-arch: amd64 + arm/v7 + arm64 manifest list | **~40 MB on device** (right blob pulled automatically) |
