@@ -15,11 +15,6 @@
   - Strip binaries (`strip`, `objcopy`) in builder
   - Separate “debug image” vs “production image”
 
-<br><br><br>
-
-<p class=”fragment” style=”font-size: 1.2em;”><strong>Key idea:</strong> Use the builder as a workshop, the runtime as the shipping container.</p>
-<p class=”fragment” style=”font-size: 1.2em;”><strong>Key idea #2:</strong> Container images as code.</p>
-
 :::
 
 ::: {.slide-col-right}
@@ -58,6 +53,10 @@ CMD [“/usr/local/bin/dashboard”]
 :::
 
 ::::
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> Use the builder as a workshop, the runtime as the shipping container.</p>
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea #2:</strong> Container images as code.</p>
 
 ---
 
@@ -105,8 +104,6 @@ CMD [“/usr/local/bin/dashboard”]
   - Frontend gets its own build pipeline (React, Vue, …)
   - Here: frontend is a single static file — 2 services is enough
 
-<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> Containers as unit of deployment, not just packaging.</p>
-
 :::
 
 ::: {.slide-col-right}
@@ -142,6 +139,8 @@ volumes:
 :::
 
 ::::
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> Containers as unit of deployment, not just packaging.</p>
 
 ---
 
@@ -200,8 +199,6 @@ volumes:
   - `distroless/static` — nothing; statically compiled binaries only
   - `distroless/cc` — glibc + libstdc++ (C++ programs)
 
-<p class="fragment" style="font-size: 1.2em;"><strong>Tradeoff:</strong> Great for production; need a separate path for debugging.</p>
-
 :::
 
 ::: {.slide-col-right}
@@ -235,6 +232,8 @@ CMD ["/web"]
 :::
 
 ::::
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Tradeoff:</strong> Great for production; need a separate path for debugging.</p>
 
 ---
 

@@ -78,10 +78,6 @@ We already know: `docker build`, `docker run`, basic images. Embedded is differe
   - No separation of concerns (sensor + nginx in one contaner)
   - Runs as root
 
-<br>
-
-<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> What you build with ≠ what you need to run.</p>
-
 :::
 
 ::: {.slide-col-right}
@@ -119,6 +115,8 @@ CMD ["/app/entrypoint.sh"]
 :::
 
 ::::
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> What you build with ≠ what you need to run.</p>
 
 ---
 

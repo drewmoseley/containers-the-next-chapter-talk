@@ -19,7 +19,7 @@ We end with:
   - Hardware access
   - Debugging
 
-**Key takeaway:** Containers *can* be right for embedded—but only if we design with embedded constraints in mind.
+<p class="fragment" style="font-size: 1.2em;"><strong>Key takeaway:</strong> Containers <em>can</em> be right for embedded—but only if we design with embedded constraints in mind.</p>
 
 ---
 
