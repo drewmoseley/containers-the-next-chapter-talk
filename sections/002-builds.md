@@ -60,7 +60,7 @@ CMD [“/usr/local/bin/dashboard”]
 
 ---
 
-## Step 1: Running Example
+## Step 1: Running Comparison
 
 - Same app, same board — only the Dockerfile changed
 
@@ -144,7 +144,7 @@ volumes:
 
 ---
 
-## Step 2: Running Example
+## Step 2: Running Comparison
 
 - Split into two containers: `sensor` writes JSON to a named volume; `nginx` reads it
 
@@ -237,7 +237,7 @@ CMD ["/web"]
 
 ---
 
-## Step 3: Running Example
+## Step 3: Running Comparison
 
 - Same architecture as step 2 — only the `FROM` lines changed
 
@@ -329,7 +329,7 @@ CMD ["/sensor", "/data/sensor.json"]
 
 ---
 
-## Step 4: Running Example
+## Step 4: Running Comparison
 
 - Same architecture as step 3 — only the image tags changed
 
@@ -366,23 +366,23 @@ CMD ["/sensor", "/data/sensor.json"]
 
 ---
 
-## Multi-Architecture Builds
+## Multi-Arch
 
 :::: {.slide-columns}
 
 ::: {.slide-col-left}
 
-- Problem: dev machines are x86, boards are ARMv7 or AArch64
-- Solution: OCI manifest lists — one tag, multiple platform blobs
-  - `docker pull` fetches the right blob automatically
+- OCI manifest lists
+  — one tag, multiple platform blobs
+  - `docker pull` fetches the right arch automatically
   - No per-device Dockerfile changes
-- Requirements:
+- How:
   - `docker buildx` with a multi-platform builder
   - QEMU binfmt handlers on the build host (or native builders)
-  - A registry to push to — `--load` only works for single-platform
-- Platforms in this talk:
+  - A registry
+- Platforms used:
   - `linux/amd64` — dev machines
-  - `linux/arm/v7` — 32-bit ARM boards
+  - `linux/arm/v7` — ARM 32-bit boards (Apalis i.MX6)
   - `linux/arm64` — AArch64 boards (Verdin iMX8M Mini)
 
 :::
@@ -430,7 +430,7 @@ deploy:
 
 ---
 
-## Step 5: Running Example
+## Step 5: Running Comparison
 
 - Same app, same Dockerfiles — only the build command changed
 

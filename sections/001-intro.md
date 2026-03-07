@@ -62,13 +62,13 @@ We already know: `docker build`, `docker run`, basic images. Embedded is differe
 
 ---
 
-## Step 0: Beginner Setup
+## Beginner Setup
 
 :::: {.slide-columns}
 
 ::: {.slide-col-left}
 
-- Single Dockerfile (stage - details later):
+- Single Dockerfile ("stage" - details later):
   - Full Debian image
   - Build tools in the running image
   - Intermediate build outputs also in the running image
@@ -120,7 +120,7 @@ CMD ["/app/entrypoint.sh"]
 
 ---
 
-## Step 0: Running Example
+## Step 0: Running Comparison
 
 - Toradex Verdin i.MX8M Mini + Dahlia Carrier Board, eMMC storage
 
