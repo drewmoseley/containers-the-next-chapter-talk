@@ -12,6 +12,13 @@
 <p class="speaker-name">Drew Moseley</p>
 <p class="speaker-role">Torizon Professional Services, Staff Developer</p>
 <p class="speaker-company">Toradex</p>
+<div class="speaker-contact">
+<a href="mailto:drew.moseley@toradex.com" class="contact-link"><img src="img/email.svg" alt="Email" class="contact-sicon"> drew.moseley@toradex.com</a>
+<a href="https://www.linkedin.com/in/drewmoseley/" class="contact-link"><img src="img/linkedin.svg" alt="LinkedIn" class="contact-sicon"> /in/drewmoseley</a>
+<a href="https://x.com/drewmoseley" class="contact-link"><img src="img/x.svg" alt="X" class="contact-sicon"> @drewmoseley</a>
+<a href="https://github.com/drewmoseley" class="contact-link"><img src="img/github.svg" alt="GitHub" class="contact-sicon"> drewmoseley</a>
+<a href="https://fosstodon.org/@drewmoseley" class="contact-link"><img src="img/mastodon.svg" alt="Mastodon" class="contact-sicon"> &#64;drewmoseley&#64;fosstodon.org</a>
+</div>
 </div>
 </div>
 
