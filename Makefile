@@ -16,5 +16,5 @@ pdf: reveal
 	@bash -c '\
 	  python3 -m http.server $(PDF_PORT) --bind 127.0.0.1 --directory $(BUILD_DIR) &\
 	  SERVER_PID=$$!; sleep 1;\
-	  npx decktape reveal "http://127.0.0.1:$(PDF_PORT)/$(PDF_FILE)" $(abspath $(PDF_OUT));\
+	  npx --yes decktape reveal "http://127.0.0.1:$(PDF_PORT)/$(PDF_FILE)" $(abspath $(PDF_OUT));\
 	  kill $$SERVER_PID 2>/dev/null; true'
