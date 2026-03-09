@@ -555,6 +555,37 @@
   min-width: 12em;
 }
 
+/* --- Future Topics 3-column grid --- */
+.reveal .slides section .topics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2em;
+  margin-top: 0.8em;
+}
+
+.reveal .slides section .topic-col {
+  border: 1px solid var(--color-border);
+  border-top: 5px solid var(--toradex-green);
+  border-radius: 4px;
+  padding: 1em 1.2em;
+  background: rgba(0, 59, 100, 0.02);
+  font-size: 0.82em;
+}
+
+.reveal .slides section .topic-col-title {
+  font-weight: 700;
+  color: var(--toradex-blue);
+  font-size: 1.05em;
+  margin-bottom: 0.6em;
+}
+
+.reveal .slides section .topic-col ul {
+  margin: 0;
+  padding-left: 1.1em;
+  line-height: 1.7;
+}
+
+/* --- */
 .reveal .slides section .arch-volume-box {
   border: 2px dashed #888;
   border-radius: 4px;
