@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := all
+
 BUILD_DIR   := build
 HTML_OUT    := $(BUILD_DIR)/containers-embedded.html
 PDF_OUT     := $(BUILD_DIR)/containers-embedded.pdf
