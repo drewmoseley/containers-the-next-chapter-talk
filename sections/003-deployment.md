@@ -8,11 +8,10 @@
 
 ::: {.slide-col-left}
 
-- Layering strategy:
-  - Stable base image + app layer on top
+- Stable base image + app layer on top
   - Only the app layer ships on update
 - Anti-pattern: `RUN apt update && apt upgrade` in every build
-  - Invalidates everything above it in the layer cache
+  - Busts the cache above it
 - Change one line in `sensor.c` → rebuild → push
   - Device pulls only the app layer (a few kB) of a 35 MB image
 
@@ -49,7 +48,7 @@ Status: Downloaded newer image
 
 <p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> The registry is a content-addressed patch system — you only pay for what changed.</p>
 
-<p class="fragment" style="font-size: 1.2em;"><strong>Key idea #2:</strong> Place frequently changing instructions <em>later</em> in the Dockerfile — everything above a changed layer is reused.</p>
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea #2:</strong> Frequently-changing instructions go <em>last</em> — everything above is reused.</p>
 
 ---
 
@@ -63,8 +62,8 @@ Status: Downloaded newer image
 <div class="update-card-icon">🌐</div>
 <div class="update-card-title">Online</div>
 <ul>
-<li>Central registry with signed, multi-arch images</li>
-<li>Edge mirrors / pull-through cache save bandwidth</li>
+<li>Signed, multi-arch registry</li>
+<li>Pull-through cache saves bandwidth</li>
 <li>Staggered rollout · canary devices for large fleets</li>
 </ul>
 </div>
@@ -74,8 +73,8 @@ Status: Downloaded newer image
 <div class="update-card-title">Offline / Air-Gapped</div>
 <ul>
 <li><code>docker save</code>/<code>load</code> via USB or SD card</li>
-<li>Verify image signature on-device before load</li>
-<li>Keep previous image · fall back on failed health check</li>
+<li>Verify signature before load</li>
+<li>Keep previous · roll back on health check failure</li>
 </ul>
 </div>
 
@@ -84,9 +83,9 @@ Status: Downloaded newer image
 <div class="update-considerations fragment">
 <div class="update-considerations-title">For both</div>
 <div class="update-considerations-items">
-<div class="update-consideration-item">🩺 <strong>Health checks</strong> — verify the new container is functional before retiring the old one</div>
-<div class="update-consideration-item">↩️ <strong>Rollback</strong> — keep the previous image locally; restart the old version on failure</div>
-<div class="update-consideration-item">🔏 <strong>Signature verification</strong> — confirm image origin before load, regardless of transport</div>
+<div class="update-consideration-item">🩺 <strong>Health checks</strong> — verify new container before retiring old</div>
+<div class="update-consideration-item">↩️ <strong>Rollback</strong> — keep previous image; restart on failure</div>
+<div class="update-consideration-item">🔏 <strong>Signature verification</strong> — confirm origin before load</div>
 </div>
 </div>
 

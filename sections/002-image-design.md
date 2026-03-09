@@ -8,14 +8,14 @@
 
 ::: {.slide-col-left}
 
-- Single Dockerfile ("stage" - details later):
+- Single Dockerfile:
   - Full Debian image
-  - Build tools in the running image
-  - Intermediate build outputs also in the running image
+  - Build tools included
+  - Intermediate artifacts included
 - Problems:
-  - Large Image: 498 MB
-  - Large base image = bigger attack surface
-  - No separation of concerns (sensor + nginx in one contaner)
+  - 498 MB image
+  - Large attack surface
+  - No separation of concerns
   - Runs as root
 
 :::
@@ -91,15 +91,15 @@ CMD ["/app/entrypoint.sh"]
 ::: {.slide-col-left}
 
 - Multi-stage builds:
-  - `builder` image with toolchains, headers, debug tools
-  - `runtime` image with only what you need
+  - `builder` — toolchains, headers, debug tools
+  - `runtime` — only what you need to run
 - Benefits:
   - Smaller images
   - Fewer CVEs
-  - Fewer packages installed on device
-- Additional common patterns:
-  - Strip binaries (`strip`, `objcopy`) in builder
-  - Separate “debug image” vs “production image”
+  - Fewer packages on device
+- Common patterns:
+  - Strip binaries in builder
+  - Separate debug vs production image
 
 :::
 
@@ -177,18 +177,18 @@ CMD [“/usr/local/bin/dashboard”]
 
 ::: {.slide-col-left}
 
-- Monolithic container problems:
+- Monolithic problems:
   - Single failure domain
-  - One process crash takes everything down
-  - Update one thing → rebuild and redeploy everything
-  - Can't resource-limit services independently
-- Solution: one process per container
-  - Each service has its own image, lifecycle, restart policy
-  - Services share data via **named volumes** or networking
-  - Independent image sizes, update cadence, security surface
+  - One crash takes everything down
+  - Update one → rebuild all
+  - No independent resource limits
+- One process per container:
+  - Own image, lifecycle, restart policy
+  - Share data via **named volumes** or networking
+  - Independent updates, sizing, security surface
 - Common 3-service pattern: `sensor` + `api` + `frontend`
-  - Frontend gets its own build pipeline (React, Vue, …)
-  - Here: frontend is a single static file — 2 services is enough
+  - Own pipeline (React, Vue, …)
+  - Here: single static file — 2 services suffice
 
 :::
 
@@ -271,18 +271,18 @@ volumes:
 
 ::: {.slide-col-left}
 
-- Traditional base images include shell, package manager, libraries
+- Traditional bases bundle shell, package manager, libraries
 - Minimal options:
   - **Distroless** (Google) — no shell, no package manager, just runtime libs
-  - **Chiselled** (Canonical) — Ubuntu with everything non-essential removed
-  - **`scratch`** — empty filesystem; fully static binaries only
-- Why it matters for embedded:
+  - **Chiselled** (Canonical) — Ubuntu stripped to essentials
+  - **`scratch`** — empty; static binaries only
+- Embedded benefits:
   - Smaller flash footprint
   - Fewer packages to patch
   - Smaller CVE surface
-- Choosing the right distroless variant:
-  - `distroless/base` — glibc included (C/C++ programs)
-  - `distroless/static` — nothing; statically compiled binaries only
+- Distroless variants:
+  - `distroless/base` — glibc (C/C++ programs)
+  - `distroless/static` — statically compiled binaries only
   - `distroless/cc` — glibc + libstdc++ (C++ programs)
 
 :::
@@ -365,16 +365,16 @@ CMD ["/web"]
 
 ::: {.slide-col-left}
 
-- Running as root inside a container is still a risk:
+- Root inside a container is still a risk:
   - Container escape → root on host
   - Accidental writes to system paths
-- Solution: run as an unprivileged user
+- Run as an unprivileged user:
   - `USER` instruction in the Dockerfile
-  - Or use distroless `:nonroot` tags — uid 65532 baked in, no extra steps
-- Requirements for your app:
-  - Must not bind privileged ports (< 1024)
-  - Must not write to root-owned paths
-  - Data volumes must be writable by the non-root uid
+  - Distroless `:nonroot` — uid 65532, no extra steps
+- App requirements:
+  - No privileged ports (< 1024)
+  - No writes to root-owned paths
+  - Volumes writable by uid 65532
 
 :::
 
@@ -458,15 +458,14 @@ CMD ["/sensor", "/data/sensor.json"]
 
 ::: {.slide-col-left}
 
-- OCI manifest lists
-  — one tag, multiple platform blobs
-  - `docker pull` fetches the right arch automatically
+- One tag, multiple platform blobs (OCI manifest list)
+  - `docker pull` selects the right arch
   - No per-device Dockerfile changes
 - How:
   - `docker buildx` with a multi-platform builder
-  - QEMU binfmt handlers on the build host (or native builders)
+  - QEMU binfmt on build host (or native builders)
   - A registry
-- Platforms used:
+- Targets:
   - `linux/amd64` — dev machines
   - `linux/arm/v7` — ARM 32-bit boards (Apalis i.MX6)
   - `linux/arm64` — AArch64 boards (Verdin iMX8M Mini)

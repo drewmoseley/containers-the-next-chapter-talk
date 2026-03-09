@@ -1,6 +1,6 @@
 ## Future Topics
 
-Each of these deserves its own talk — here are the headlines:
+Each deserves its own talk:
 
 <div class="topics-grid">
 
@@ -18,7 +18,7 @@ Each of these deserves its own talk — here are the headlines:
 <div class="topic-col-title">🔐 Security & Supply Chain</div>
 
 - Minimal images shrink CVE surface
-- SBOMs — SPDX / CycloneDX formats
+- SBOMs (SPDX / CycloneDX)
 - Image signing with Cosign / Sigstore
 - Runtime hardening: read-only rootfs, drop caps
 - Rootless runtimes

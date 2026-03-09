@@ -28,7 +28,7 @@
 
 ## Why Containers *Beyond* the Basics?
 
-We already know: `docker build`, `docker run`, basic images. Embedded is different:
+The basics are known. Embedded adds real constraints:
 
 <div class="constraint-cards">
 <div class="constraint-card fragment"><div class="constraint-icon">💾</div>
@@ -49,13 +49,13 @@ We already know: `docker build`, `docker run`, basic images. Embedded is differe
 
 ## Meta-Talk: A Note
 
-- This talk was also an excuse to experiment with new tools:
+- This talk doubled as an experiment:
   - Slides authored in **Markdown** (not PowerPoint)
   - Presented with **Reveal.js** in the browser
   - Built with **pandoc** + a simple **Makefile**
   - Developed with help from **AI** (Claude Code)
-  - Tight integration into bot Visual Studio Code and Emacs
-- The source and examples are on [GitHub](https://github.com/drewmoseley/containers-the-next-chapter-talk)<sup>1</sup> if you're curious
+  - VS Code and Emacs integration
+- Source + examples on [GitHub](https://github.com/drewmoseley/containers-the-next-chapter-talk)<sup>1</sup>
 
 <div class="right-logos">
 <img src="img/markdown-color.svg" title="Markdown">

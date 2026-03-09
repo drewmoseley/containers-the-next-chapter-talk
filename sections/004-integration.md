@@ -1,6 +1,6 @@
 ## Embedded Integration Ladder
 
-Containers don't replace the OS — pick the right rung for your application:
+Pick the right rung for your application:
 
 <div class="priv-ladder">
 
@@ -39,4 +39,4 @@ Containers don't replace the OS — pick the right rung for your application:
 
 </div>
 
-<p class="fragment" data-fragment-index="5" style="font-size: 1.2em;"><strong>Key idea:</strong> Least-privilege applies here too — expose exactly what the application needs, nothing more.</p>
+<p class="fragment" data-fragment-index="5" style="font-size: 1.2em;"><strong>Key idea:</strong> Expose exactly what the app needs — nothing more.</p>
