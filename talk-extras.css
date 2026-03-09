@@ -555,6 +555,48 @@
   min-width: 12em;
 }
 
+/* --- Container Ecosystem slide --- */
+.reveal .slides section .ecosystem-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-top: 0.6em;
+}
+
+.reveal .slides section .ecosystem-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+
+.reveal .slides section .ecosystem-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
+}
+
+.reveal .slides section .eco-card {
+  border: 1px solid var(--color-border);
+  border-top: 4px solid var(--toradex-green);
+  border-radius: 4px;
+  padding: 0.7em 1em;
+  background: rgba(0, 59, 100, 0.02);
+}
+
+.reveal .slides section .eco-card-title {
+  font-weight: 700;
+  color: var(--toradex-blue);
+  font-size: 0.95em;
+  margin-bottom: 0.4em;
+}
+
+.reveal .slides section .eco-card ul {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: 0.78em;
+  line-height: 1.65;
+}
+
 /* --- Future Topics 3-column grid --- */
 .reveal .slides section .topics-grid {
   display: grid;
