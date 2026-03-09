@@ -55,26 +55,39 @@ Status: Downloaded newer image
 
 ## Online & Offline Updates
 
-:::: {.slide-columns}
+<div class="update-layout">
 
-::: {.slide-col-left}
+<div class="update-cards">
 
-**Online**
+<div class="update-card fragment">
+<div class="update-card-icon">🌐</div>
+<div class="update-card-title">Online</div>
+<ul>
+<li>Central registry with signed, multi-arch images</li>
+<li>Edge mirrors / pull-through cache save bandwidth</li>
+<li>Staggered rollout · canary devices for large fleets</li>
+</ul>
+</div>
 
-- Central registry holds signed, multi-arch images
-- Edge mirrors / pull-through cache save bandwidth
-- Staggered rollout / canary devices for large fleets
+<div class="update-card fragment">
+<div class="update-card-icon">💾</div>
+<div class="update-card-title">Offline / Air-Gapped</div>
+<ul>
+<li><code>docker save</code>/<code>load</code> via USB or SD card</li>
+<li>Verify image signature on-device before load</li>
+<li>Keep previous image · fall back on failed health check</li>
+</ul>
+</div>
 
-:::
+</div>
 
-::: {.slide-col-right}
+<div class="update-considerations fragment">
+<div class="update-considerations-title">For both</div>
+<div class="update-considerations-items">
+<div class="update-consideration-item">🩺 <strong>Health checks</strong> — verify the new container is functional before retiring the old one</div>
+<div class="update-consideration-item">↩️ <strong>Rollback</strong> — keep the previous image locally; restart the old version on failure</div>
+<div class="update-consideration-item">🔏 <strong>Signature verification</strong> — confirm image origin before load, regardless of transport</div>
+</div>
+</div>
 
-**Offline / Air-Gapped**
-
-- `docker save`/`load` via USB or SD card
-- Verify image signature on-device before load
-- Rollback: keep previous image, fall back on failed health check
-
-:::
-
-::::
+</div>

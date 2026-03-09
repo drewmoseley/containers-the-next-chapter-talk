@@ -449,6 +449,112 @@
   padding: 0 0.5em;
 }
 
+/* --- Update flow diagrams (online / offline stacked rows) --- */
+.reveal .slides section .update-flows {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2em;
+  margin-top: 1em;
+}
+
+.reveal .slides section .update-flow-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55em;
+}
+
+.reveal .slides section .update-flow-label {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--toradex-blue);
+}
+
+.reveal .slides section .update-flow-notes {
+  font-size: 0.82em;
+  color: #666;
+  padding-left: 0.4em;
+  font-style: italic;
+}
+
+/* --- Update layout wrapper (centers the cards + considerations block) --- */
+.reveal .slides section .update-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4em;
+  margin-top: 0.6em;
+}
+
+/* --- Update mode cards (online / offline icon cards) --- */
+.reveal .slides section .update-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3em;
+  width: 100%;
+}
+
+.reveal .slides section .update-card {
+  border: 1px solid var(--color-border);
+  border-top: 6px solid var(--toradex-green);
+  border-radius: 4px;
+  padding: 1.4em 1.6em;
+  background: rgba(0, 59, 100, 0.02);
+  text-align: center;
+}
+
+.reveal .slides section .update-card-icon {
+  font-size: 3em;
+  line-height: 1.1;
+  margin-bottom: 0.2em;
+}
+
+.reveal .slides section .update-card-title {
+  font-weight: bold;
+  color: var(--toradex-blue);
+  font-size: 1.3em;
+  margin-bottom: 0.6em;
+}
+
+.reveal .slides section .update-card ul {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: 0.9em;
+  line-height: 1.75;
+  text-align: left;
+}
+
+/* --- Update considerations panel (full-width, below update-cards) --- */
+.reveal .slides section .update-considerations {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-left: 6px solid var(--toradex-blue);
+  border-radius: 4px;
+  padding: 0.8em 1.4em;
+  background: rgba(0, 59, 100, 0.03);
+}
+
+.reveal .slides section .update-considerations-title {
+  font-weight: 700;
+  color: var(--toradex-blue);
+  font-size: 1.0em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.reveal .slides section .update-considerations-items {
+  display: flex;
+  gap: 2em;
+  flex-wrap: wrap;
+}
+
+.reveal .slides section .update-consideration-item {
+  font-size: 0.88em;
+  line-height: 1.5;
+  flex: 1;
+  min-width: 12em;
+}
+
 .reveal .slides section .arch-volume-box {
   border: 2px dashed #888;
   border-radius: 4px;
