@@ -263,7 +263,7 @@
 .reveal .slides section .code-window {
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
   text-align: left;
 }
 
@@ -316,15 +316,33 @@
 
 .reveal .slides section .code-window pre {
   margin: 0 !important;
-  padding: 0.8em 1.2em !important;
+  padding: 0 !important;
+  width: 100% !important;
   border-radius: 0 !important;
-  overflow: visible !important;
+  overflow: hidden !important;
   max-height: none !important;
+  box-shadow: none !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.reveal .slides section .code-window pre::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .reveal .slides section .code-window pre code {
-  overflow: visible !important;
+  overflow: hidden !important;
   max-height: none !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.reveal .slides section .code-window pre code::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* --- Architecture diagrams for container step slides ---
