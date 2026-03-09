@@ -4,19 +4,11 @@
 
 ## Debugging in Production
 
-- Problem:
-  - Minimal / distroless images are great… until something breaks
-  - No shell, no tools, no package manager
-- Strategy:
-  - Keep runtime image lean
-  - Use external tooling when needed
+Minimal images are great — until something breaks. A few patterns that keep runtime images lean while still giving you escape hatches:
 
-Patterns:
+- **Debug sidecar** — temporary container that joins the app's namespaces (`--pid`, `--net`) without modifying the runtime image
+- **`distroless/base:debug`** — the `:debug` tag adds a busybox shell for exactly this purpose
+- **Tooling containers** — full toolbox (strace, perf, eBPF tools) for field engineers; pull on demand, not deployed by default
+- **Ephemeral debug containers** — `docker exec` into a running container with a separate image; no restart required
 
-- "Debug sidecar":
-  - Temporary container that joins namespaces of running app
-  - Share `--pid`, `--net` namespaces — see inside without modifying the runtime image
-  - `gcr.io/distroless/base:debug` adds a busybox shell for exactly this
-- Tooling containers:
-  - Full toolbox (strace, perf, eBPF tools, editors) for field engineers
-  - Not present on every device by default — pull on demand
+<p class="fragment" style="font-size: 1.2em;"><strong>Watch this space:</strong> this 2-part series is probably becoming a 3- or 4-parter.</p>
