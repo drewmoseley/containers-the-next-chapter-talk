@@ -2,4 +2,6 @@ build/
 *~
 \#*\#
 .\#*
-.claude
+.claude/**
+!.claude/memory/
+!.claude/memory/**
