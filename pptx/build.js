@@ -273,7 +273,7 @@ function renderBullets(bullets, size) {
 const STEP_ROWS = [
   ["step0", "Baseline: single-stage, debian:trixie, build tools included", "498 MB"],
   ["step1", "Multi-stage: debian:trixie-slim runtime, no build tools", "112 MB"],
-  ["step2", "Microservices: sensor + nginx, named volume", "~112 MB on disk (shared base)"],
+  ["step2", "Microservices: sensor + nginx, named volume", "101 + 112 = 213 MB naïve; ~112 MB on disk (shared base)"],
   ["step3", "Distroless: sensor (35 MB) + Go web (7.6 MB)", "~40 MB on disk"],
   ["step4", "Nonroot: :nonroot distroless tags, uid 65532", "~40 MB on disk (same size)"],
   ["step5", "Multi-arch: amd64 + arm/v7 + arm64 manifest list", "~40 MB on device (right blob pulled automatically)"],
@@ -447,7 +447,7 @@ function comparisonSlide(pres, stepIdx, title, archNote, diagram, changedNote, n
   const tableY = 3.25, rowH = 0.38;
   s.addTable([header, ...rows], {
     x: 0.7, y: tableY, w: 11.9, h: rowH * (rows.length + 1),
-    colW: [1.3, 7.4, 3.2],
+    colW: [1.3, 6.4, 4.2],
     border: { type: "solid", color: "DDDDDD", pt: 0.5 },
     autoPage: false,
     valign: "middle",
