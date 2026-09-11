@@ -17,6 +17,11 @@ PPTX_DIR := pptx
 pptx:
 	cd $(PPTX_DIR) && npm install --no-audit --no-fund && node build.js
 
+.PHONY: clean
+clean:
+	rm -rf $(BUILD_DIR)
+	rm -rf $(PPTX_DIR)/node_modules $(PPTX_DIR)/output.* $(PPTX_DIR)/tmp $(PPTX_DIR)/unpacked $(PPTX_DIR)/*.jpg
+
 .PHONY: pdf
 pdf: reveal
 	@bash -c '\
