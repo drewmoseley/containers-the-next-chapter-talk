@@ -554,6 +554,11 @@ function ladderSlide(pres) {
     });
   });
 
+  s.addText("Key idea: Expose exactly what the app needs — nothing more.", {
+    x: 0.7, y: 6.45, w: 11.9, h: 0.4, fontFace: FONT_BODY, fontSize: 14, italic: true,
+    color: RED, bold: true, margin: 0,
+  });
+
   footer(s);
   s.addNotes("Walk this top to bottom. Land hard on --privileged being almost never the right answer — that's the payoff line.");
   return s;
@@ -817,7 +822,10 @@ async function main() {
       "One process per container:",
       { text: "Own image, lifecycle, restart policy", sub: true },
       { text: "Share data via named volumes or networking", sub: true },
-      "Common 3-service pattern: sensor + api + frontend (here: 2 services suffice)",
+      { text: "Independent updates, sizing, security surface", sub: true },
+      "Common 3-service pattern: sensor + api + frontend",
+      { text: "Own pipeline (React, Vue, …)", sub: true },
+      { text: "Here: single static file — 2 services suffice", sub: true },
     ],
     "docker-compose.yml",
     [
