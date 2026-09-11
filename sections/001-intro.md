@@ -24,6 +24,8 @@
 
 <p class="speaker-location">We're located in Lucerne, Switzerland</p>
 
+<p class="slide-footnote">Source + examples on <a href="https://github.com/drewmoseley/containers-the-next-chapter-talk">GitHub</a>: https://github.com/drewmoseley/containers-the-next-chapter-talk</p>
+
 ---
 
 ## Why Containers *Beyond* the Basics?
@@ -44,25 +46,3 @@ The basics are known. Embedded adds real constraints:
 <div class="constraint-title">Longevity</div>
 <div class="constraint-desc">Devices live for years</div></div>
 </div>
-
----
-
-## Meta-Talk: A Note
-
-- This talk doubled as an experiment:
-  - Slides authored in **Markdown** (not PowerPoint)
-  - Presented with **Reveal.js** in the browser
-  - Built with **pandoc** + a simple **Makefile**
-  - Developed with help from **AI** (Claude Code)
-  - VS Code and Emacs integration
-- Source + examples on [GitHub](https://github.com/drewmoseley/containers-the-next-chapter-talk)<sup>1</sup>
-
-<div class="right-logos">
-<img src="img/markdown-color.svg" title="Markdown">
-<img src="img/revealdotjs-color.svg" title="Reveal.js">
-<img src="img/emacs-color.svg" title="GNU Emacs">
-<img src="img/vscode.svg" title="VS Code">
-<img src="img/claude-color.svg" title="Claude Code">
-</div>
-
-<p class="slide-footnote"><sup>1</sup> https://github.com/drewmoseley/containers-the-next-chapter-talk</p>

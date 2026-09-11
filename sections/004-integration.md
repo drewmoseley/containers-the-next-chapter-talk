@@ -40,3 +40,58 @@ Pick the right rung for your application:
 </div>
 
 <p class="fragment" data-fragment-index="5" style="font-size: 1.2em;"><strong>Key idea:</strong> Expose exactly what the app needs — nothing more.</p>
+
+---
+
+## GPU Integration: Nvidia Container Toolkit
+
+:::: {.slide-columns}
+
+::: {.slide-col-left}
+
+- GPU access is device passthrough at scale:
+  - Kernel driver + user-space libs + CUDA runtime + firmware, not one `/dev` node
+- `nvidia-container-toolkit` hooks container creation:
+  - Injects driver libraries + device nodes into the container
+  - `docker`: `--gpus all` · Jetson (L4T): `--runtime nvidia`
+- Jetson vs discrete GPU:
+  - Jetson: unified memory, BSP-locked driver tied to JetPack version
+  - Discrete (dGPU): own VRAM, swappable host driver install
+- CDI (Container Device Interface) — CNCF spec, vendor-neutral:
+  - `nvidia-ctk cdi generate` · `--device nvidia.com/gpu=all`
+  - Same syntax across Docker, Podman, containerd, CRI-O
+
+:::
+
+::: {.slide-col-right}
+
+::::: {.code-window}
+
+:::: {.code-window-titlebar}
+[]{.cw-dot .cw-red}[]{.cw-dot .cw-yellow}[]{.cw-dot .cw-green}[board terminal]{.cw-filename}
+::::
+
+```
+# Docker + nvidia-container-toolkit (legacy hook)
+$ docker run --rm --gpus all \
+    nvidia/cuda:12.4-base nvidia-smi
+
+# Jetson (L4T) — csv mount plugin, no discrete driver
+$ docker run --rm --runtime nvidia \
+    dustynv/l4t-pytorch:r36.2.0 \
+    python3 -c "import torch; print(torch.cuda.is_available())"
+
+# CDI — vendor-neutral, runtime-agnostic
+$ nvidia-ctk cdi generate \
+    --output=/etc/cdi/nvidia.yaml
+$ podman run --device nvidia.com/gpu=all \
+    nvidia/cuda:12.4-base nvidia-smi
+```
+
+:::::
+
+:::
+
+::::
+
+<p class="fragment" style="font-size: 1.2em;"><strong>Key idea:</strong> The toolkit exists because a GPU driver stack is too complex for a single <code>--device</code> flag.</p>

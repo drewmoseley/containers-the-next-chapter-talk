@@ -5,3 +5,8 @@ build/
 .claude/**
 !.claude/memory/
 !.claude/memory/**
+pptx/node_modules/
+pptx/output.*
+pptx/tmp/
+pptx/*.jpg
+pptx/unpacked/

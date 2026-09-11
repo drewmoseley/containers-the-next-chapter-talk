@@ -11,6 +11,12 @@ PDF_PORT    := 8765
 PDF_FILE    := $(notdir $(HTML_OUT))
 include $(INFRA_DIR)/Makefile.include
 
+PPTX_DIR := pptx
+
+.PHONY: pptx
+pptx:
+	cd $(PPTX_DIR) && npm install --no-audit --no-fund && node build.js
+
 .PHONY: pdf
 pdf: reveal
 	@bash -c '\
