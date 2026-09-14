@@ -11,6 +11,30 @@ build commands, manage_slides.py, base CSS classes).
 
 ---
 
+## Two separate slide sources — keep both in sync
+
+`sections/*.md` (HTML/reveal.js deck) and `pptx/build.js` (hand-authored
+pptxgenjs script) are **not generated from each other**. `pptx/build.js`
+hardcodes each slide's title/bullets/code/notes independently; `make pptx`
+just re-runs that script, it does not read `sections/*.md`. Editing content
+in one and running `make pptx` or `make reveal` will NOT propagate the
+change to the other.
+
+Whenever a slide's content changes, update both:
+1. The matching `sections/NNN-*.md` file.
+2. The matching slide-builder call in `pptx/build.js`'s `main()` (match by
+   slide title/section).
+
+Found 2026-09-14: `build.js` had drifted stale on the GPU Integration slide
+(old CDI content after the markdown had been edited), was missing the entire
+`010-backup.md` section (2 slides), and `001-intro.md`'s title-slide date was
+stale (leftover from an earlier venue) while `build.js`'s was already
+correct. All fixed same day — but confirms these two sources drift silently
+with no build-time check. When touching a slide, always check the other
+source too.
+
+---
+
 ## Memory
 
 Claude memory for this project lives in `.claude/memory/` within the repo (not in

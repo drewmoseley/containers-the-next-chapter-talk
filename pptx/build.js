@@ -619,6 +619,63 @@ function futureTopicsSlide(pres) {
   return s;
 }
 
+function ecosystemSlide(pres) {
+  const s = pres.addSlide();
+  s.background = { color: WHITE };
+  contentTitle(s, "The Container Ecosystem");
+  const topRow = [
+    { title: "📋 OCI — The Common Foundation", items: [
+      "Image Format Spec — content-addressed layers; portable across all tools",
+      "Runtime Spec — defines how containers execute on Linux",
+      "Distribution Spec — how registries serve and receive images",
+    ] },
+    { title: "⚙️ Runtimes", items: [
+      "containerd — lightweight daemon; the engine inside Docker and Torizon",
+      "Docker Engine — containerd + CLI + UX layer; ideal for development",
+      "Podman — daemonless, rootless-native; compatible CLI",
+    ] },
+  ];
+  const bottomRow = [
+    { title: "🔨 Build", items: [
+      "docker buildx — multi-platform builds",
+      "buildah — daemonless; scriptable",
+    ] },
+    { title: "📦 Registry & Inspection", items: [
+      "docker — pull, push, inspect",
+      "skopeo — registry ops without a daemon",
+      "crane — scripting-friendly registry client",
+    ] },
+    { title: "🔐 Security", items: [
+      "cosign — sign & verify images (Sigstore)",
+      "syft / grype — SBOM generation & CVE scanning",
+    ] },
+  ];
+  function card(x, y, w, h, c) {
+    s.addShape("roundRect", {
+      x, y, w, h, rectRadius: 0.08,
+      fill: { color: "F4F6F8" }, line: { type: "none" },
+    });
+    s.addText(c.title, {
+      x: x + 0.2, y: y + 0.15, w: w - 0.4, h: 0.5, fontFace: FONT_HEAD, fontSize: 13,
+      bold: true, color: RED, margin: 0,
+    });
+    s.addText(c.items.map((it, j) => ({ text: it, options: { bullet: true, breakLine: j < c.items.length - 1, paraSpaceAfter: 6 } })), {
+      x: x + 0.2, y: y + 0.65, w: w - 0.4, h: h - 0.85, fontFace: FONT_BODY, fontSize: 11,
+      color: BODYGRAY, margin: 0, valign: "top",
+    });
+  }
+  const topW = 5.75, topGap = 0.3, topY = 1.25, topH = 2.15;
+  topRow.forEach((c, i) => card(0.7 + i * (topW + topGap), topY, topW, topH, c));
+  const botW = 3.73, botGap = 0.25, botY = topY + topH + 0.25, botH = 2.15;
+  bottomRow.forEach((c, i) => card(0.7 + i * (botW + botGap), botY, botW, botH, c));
+  s.addText("We use Docker throughout — but the images and workflows are portable across the whole stack.", {
+    x: 0.7, y: botY + botH + 0.15, w: 11.9, h: 0.4, fontFace: FONT_BODY, fontSize: 13, italic: true,
+    color: RED, bold: true, margin: 0,
+  });
+  footer(s);
+  return s;
+}
+
 function wrapupSlide(pres) {
   const s = pres.addSlide();
   s.background = { color: WHITE };
@@ -1046,40 +1103,52 @@ async function main() {
 
   codeSlide(pres, "GPU Integration: Nvidia Container Toolkit",
     [
-      "GPU access is device passthrough at scale:",
-      { text: "Kernel driver + libs + CUDA runtime + firmware, not one /dev node", sub: true },
-      "nvidia-container-toolkit hooks container creation, injects libs + device nodes:",
-      { text: "docker: --gpus all  ·  Jetson (L4T): --runtime nvidia", sub: true },
-      "Jetson vs discrete GPU:",
-      { text: "Jetson: unified memory, driver locked to JetPack version", sub: true },
-      { text: "Discrete (dGPU): own VRAM, swappable host driver", sub: true },
-      "CDI (Container Device Interface) — CNCF spec, vendor-neutral:",
-      { text: "nvidia-ctk cdi generate  ·  --device nvidia.com/gpu=all  ·  same syntax on Podman/containerd/CRI-O", sub: true },
+      "GPU access is device passthrough at scale — not one /dev node, a whole driver + userspace lib stack",
+      "nvidia-container-toolkit mounts host driver libs + device nodes into the container (--runtime nvidia)",
+      { text: "Container reuses the host's shared objects, so driver/firmware always match", sub: true },
+      "Torizon skips that runtime: same device-cgroup mounting done directly, fully isolated",
+      { text: "Same pattern used on NXP platforms", sub: true },
     ],
     "board terminal",
     [
-      "# Docker + nvidia-container-toolkit (legacy hook)",
-      "$ docker run --rm --gpus all \\",
-      "    nvidia/cuda:12.4-base nvidia-smi",
-      "",
-      "# Jetson (L4T) — csv mount plugin, no discrete driver",
+      "# Jetson (L4T): nvidia-container-toolkit",
       "$ docker run --rm --runtime nvidia \\",
       "    dustynv/l4t-pytorch:r36.2.0 \\",
       '    python3 -c "import torch; print(torch.cuda.is_available())"',
-      "",
-      "# CDI — vendor-neutral, runtime-agnostic",
-      "$ nvidia-ctk cdi generate \\",
-      "    --output=/etc/cdi/nvidia.yaml",
-      "$ podman run --device nvidia.com/gpu=all \\",
-      "    nvidia/cuda:12.4-base nvidia-smi",
     ],
-    ["Key idea: The toolkit exists because a GPU driver stack is too complex for a single --device flag."],
-    "New for ewNA — audience will have just seen several Nvidia announcements at the show; land the Jetson vs dGPU distinction, that's the one that trips people up."
+    ["Key idea: GPU containers aren't exotic — same device-cgroup pattern as any other embedded GPU platform, Nvidia's toolkit just automates the path list."],
+    "Reviewed by Leonardo Bornia (Nvidia) 2026-09-14 — audience will have just seen several Nvidia announcements at the show."
   );
 
   futureTopicsSlide(pres);
   wrapupSlide(pres);
   thankYouSlide(pres);
+
+  sectionSlide(pres, "Backup Slides", null);
+
+  codeSlide(pres, "Inspecting Layers Before You Pull",
+    [
+      "skopeo reads the OCI manifest from a registry — no pull, no daemon required",
+      "Shows layer digests + compressed sizes before committing any bandwidth",
+      "Useful for pre-flight estimates, diffing releases, scripted fleet rollouts",
+    ],
+    "terminal",
+    [
+      "$ skopeo inspect --raw \\",
+      "    docker://ghcr.io/example/dashboard/sensor:v2 \\",
+      "  | jq '.layers[] | {digest: .digest[7:19],",
+      "                     size_kb: (.size/1024|floor)}'",
+      "",
+      '{ "digest": "a8ca11554fce", "size_kb": 17999 }',
+      '{ "digest": "3d8f1b4c0b9e", "size_kb": 14453 }',
+      '{ "digest": "b2e7f9d1a3c4", "size_kb": 4      }',
+      '{ "digest": "9f4e2b8d6a1c", "size_kb": XX     }  <- TBD',
+    ],
+    ["Key idea: Know your update payload size before you commit the device's bandwidth."],
+    null
+  );
+
+  ecosystemSlide(pres);
 
   await pres.writeFile({ fileName: __dirname + "/output.pptx" });
   console.log("done, slides:", slideCounter);

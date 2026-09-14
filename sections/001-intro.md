@@ -1,6 +1,6 @@
 % Containers for Embedded Linux;<br>The Next Chapter
 % <img src="img/headshot.png" alt="Drew Moseley"><span><small>Presented by</small><strong>Drew Moseley</strong>Torizon Professional Services, Staff Developer<br>Toradex</span>
-% Embedded World Conference and Expo – March 12, 2026
+% Embedded World North America 2026 – Anaheim, CA – September 22, 2026
 
 ---
 
