@@ -1,0 +1,7 @@
+{
+  "name": "containers-embedded-talk",
+  "private": true,
+  "devDependencies": {
+    "decktape": "^3.11.0"
+  }
+}
